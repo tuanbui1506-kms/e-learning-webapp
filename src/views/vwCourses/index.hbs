@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <h4>Products</h4>
+    <a class="btn btn-outline-success" href="/admin/products/add" role="button">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      Add Product
+    </a>
+  </div>
+  <div class="card-body">
+    {{#if this.empty}}
+    <h5 class="card-title">Không có dữ liệu!</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    {{else}}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Product</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.products}}
+        <tr>
+          <th scope="row">{{ProID}}</th>
+          <td>{{ProName}}</td>
+          <td>{{Price}}</td>
+          <td>{{Quantity}}</td>
+          <td class="text-right">
+            <a name="" id="" class="btn btn-sm btn-primary" title="Edit Category" href="javascript:;" role="button">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+  </div>
+</div>

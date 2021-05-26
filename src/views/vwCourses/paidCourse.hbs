@@ -1,0 +1,94 @@
+<hr class="my-4">
+<div>
+    <div class="container">
+        <div class="container">
+            <div>
+                <h4 style="margin: 0 0 10px 0;"><b>{{{this.subCatName.Name}}}</b> </h4>
+            </div>
+            <div class="alert alert-dark" role="alert" style="margin: 0 0 0px 0;">
+               <i class="fa fa-book" aria-hidden="true"></i>
+                <strong>My course</strong>
+            </div>
+        </div>
+        <hr>
+        <div class="card-body">
+            {{#if this.empty}}
+            <h5 class="card-title">Không có dữ liệu!</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            {{else}}
+            <div class="col">
+                {{#each this.course}}
+                <a href="/courses/detail/{{CoursesID}}">
+
+                    <div class="row">
+                        <div class="col-3">
+                            <img style=" border-radius: 8px; border: 1px solid darkgrey;"
+                                src="/design/images/course_{{CoursesID}}.jpg" alt="{{Name}}" title="{{Name}}"
+                                class="card-img-top">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><b>{{Name}}</b></h5>
+                                <p class="card-text" style="margin-bottom:0%; color:black">{{TinyDes}}</p>
+                                <p class="card-text" style="font-size: 13px; margin-bottom:5px">{{namegv}}</p>
+                                {{#if rat}}
+                                <div class="row" style="margin-left:0px; margin-right:5px">
+                                    <h6 class="text-danger" style="margin-top: 1%; margin-right: 1%;"><b>{{T}}</b></h5>
+                                        <span class="stars-container stars-{{rat}}">★★★★★</span>
+                                        <p class="card-text"
+                                            style="font-size: 14px; margin-top: 5px; margin-left: 1%; color:darkgray;">
+                                            ({{count}})</p>
+                                </div>
+                                {{else}}
+                                <div class="row" style="margin-left:0px">
+                                    <span class="stars-container stars-0">★★★★★</span>
+                                    <p class="card-text"
+                                        style="font-size: 14px; margin-top: 5px; margin-left: 1%;  color:darkgray;"> (0)
+                                    </p>
+                                </div>
+                                {{/if}}
+
+                            </div>
+                        </div>
+                        <div class="col-1" style="text-align: center; padding-top: 20px;">
+                            {{#if Sale}}
+                            <h5 class="card-title text-danger"><b>{{format_number Sale}}</b></h5>
+                            <h5 class="card-title text-danger" style="text-decoration-line:line-through">
+                                <b>{{format_number
+                                    Price}}</b>
+                            </h5>
+                            {{else}}
+                            <h5 class="card-title text-danger"><b>{{format_number Price}}</b></h5>
+                            {{/if}}
+                        </div>
+                    </div>
+                </a>
+
+                <hr>
+                {{/each}}
+                {{!-- </!--div> --}}
+                <nav style="text-align: center;">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <span class="page-link"><i class="fa fa-chevron-left "></i></span>
+                        </li>
+                        {{#each this.page_numbers}}
+                        {{#if isCurrentPage}}
+                        <li class="page-item active">
+                            <a class="page-link" href="javascript:;">{{value}}</a>
+                        </li>
+                        {{else}}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{value}}">{{value}}</a>
+                        </li>
+                        {{/if}}
+                        {{/each}}
+                        <li class="page-item">
+                            <a class="page-link" href="#"><i class="fa fa-chevron-right "></i></a>
+                        </li>
+                    </ul>
+                </nav>
+                {{/if}}
+            </div>
+        </div>
+    </div>

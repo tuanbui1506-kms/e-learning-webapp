@@ -1,0 +1,71 @@
+<header>
+    	<nav class="fh5co-nav" role="navigation">
+			<div class="top">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12 text-right">
+							<p class="site">www.OnlineAcademy.com</p>
+							<p class="num">Call: +84 123 456 789</p>
+							<ul class="fh5co-social">
+								<li><a href="#"><i class="icon-facebook2"></i></a></li>
+								<li><a href="#"><i class="icon-twitter2"></i></a></li>
+								<li><a href="#"><i class="icon-dribbble2"></i></a></li>
+								<li><a href="#"><i class="icon-github"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-2">
+							<div id="fh5co-logo"><a href="/"><i class="icon-study"></i> Academy<span>.</span></a></div>
+						</div>
+						<div class="col-xs-2">
+							<div style="width: 1300px;">
+								<form action="/home/about" method="POST">
+									<input type="text" class="searchTerm" placeholder="What are you searching for?">
+									<button type="submit" class="searchButton"><i class="fa fa-search"></i></button>
+								</form>
+							</div>
+						</div>
+						<div class="col-xs-8 text-right menu-1">
+							<ul>
+
+								<li class="has-dropdown">
+									<a href="/">Category</a>
+									<ul class="dropdown">
+										<li><a href="/">Lập trình Web</a></li>
+										<li><a href="#">Lập trình thiết bị di động</a></li>
+									</ul>
+								</li>
+								<li class="active"><a href="home/about">About</a></li>
+								<li><a href="/contact">Contact</a></li>
+								{{#if auth}}
+								<li class="has-dropdown">
+									<a href="#" style="font-size: larger;">
+										<i class="icon-head"></i>
+										<strong>
+											{{authUser.username}}
+										</strong>
+									</a>
+									<ul class="dropdown">
+										<li><a href="#">Profile</a></li>
+										<form id="frmLogout" action="/account/logout" method="POST"></form>
+										<li><a href="javascript: $('#frmLogout').submit();">Sign out</a></li>
+
+									</ul>
+								</li>
+								{{else}}
+								<li class="btn-cta"><a href="account/login"><span>Login</span></a></li>
+								<li class="btn-cta"><a href="account/register"><span>Create Account</span></a></li>
+								{{/if}}
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</nav>
+</header>

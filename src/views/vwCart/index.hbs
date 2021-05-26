@@ -1,0 +1,65 @@
+{{#section 'js'}}
+<script>
+  $('.removeItem').on('click', function () {
+    const id = $(this).data('id');
+    $('#txtProId').val(id);
+    $('#frmRemoveItem').submit();
+  })
+</script>
+{{/section}}
+<div class="container">
+  <br>
+  <div class="card">
+    <div class="card-header mx-auto w-100">
+      Your Shopping Cart
+    </div>
+    <div class="card-body">
+      {{#if this.empty}}
+      <h5 class="card-title">Empty cart</h5>
+      <p class="card-text">Please keep shopping</p>
+
+      {{else}}
+      <form id="frmRemoveItem" action="/cart/remove" method="POST">
+        <input type="hidden" id="txtProId" name="id">
+      </form>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
+            <th scope="col">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this.items}}
+          <tr>
+            <td>
+              <a href="/courses/detail/{{course.CoursesID}}">
+                {{course.Name}}
+              </a>
+            </td>
+            <td>{{format_number course.Price}}</td>
+            <td class="text-right">
+              <a data-id="{{course.CoursesID}}" class="btn btn-sm btn-outline-danger removeItem" title="Remove Item"
+                href="javascript:;" role="button">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{/if}}
+    </div>
+    {{#unless this.empty}}
+    <div class="card-footer">
+      <form action="/cart/checkout" method="POST">
+        <button type="submit" class="btn btn-outline-success float-right">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Check Out
+        </button>
+      </form>
+    </div>
+    {{/unless}}
+  </div>
+</div>

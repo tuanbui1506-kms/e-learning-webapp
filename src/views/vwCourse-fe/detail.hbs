@@ -1,0 +1,379 @@
+{{#section 'css'}}
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+  }
+
+  .rate:not(:checked)>input {
+    position: absolute;
+
+  }
+
+  .rate:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
+  }
+
+  .rate:not(:checked)>label:before {
+    content: '★ ';
+  }
+
+  .rate>input:checked~label {
+    color: #ffc700;
+  }
+
+  .rate:not(:checked)>label:hover,
+  .rate:not(:checked)>label:hover~label {
+    color: #deb217;
+  }
+
+  .rate>input:checked+label:hover,
+  .rate>input:checked+label:hover~label,
+  .rate>input:checked~label:hover,
+  .rate>input:checked~label:hover~label,
+  .rate>label:hover~input:checked~label {
+    color: #c59b08;
+  }
+
+  .stars-container {
+    position: relative;
+    display: inline-block;
+    color: transparent;
+  }
+
+  .stars-container:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '★★★★★';
+    color: lightgray;
+  }
+
+  .stars-container:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '★★★★★';
+    color: gold;
+    overflow: hidden;
+  }
+
+  .stars-0:after {
+    width: 0%;
+  }
+
+  .stars-5:after {
+    width: 10%;
+  }
+
+  .stars-10:after {
+    width: 20%;
+  }
+
+  .stars-15:after {
+    width: 30%;
+  }
+
+  .stars-20:after {
+    width: 40%;
+  }
+
+  .stars-25:after {
+    width: 50%;
+  }
+
+  .stars-30:after {
+    width: 60%;
+  }
+
+  .stars-35:after {
+    width: 70%;
+  }
+
+  .stars-40:after {
+    width: 80%;
+  }
+
+  .stars-45:after {
+    width: 90%;
+  }
+
+  .stars-50:after {
+    width: 100;
+  }
+</style>
+
+{{/section}}
+<div class="w-100">
+  <div class="w-100 d-flex justify-content-between" style="background-color:#00587a;">
+    <div class="w-50 mx-auto">
+      <div>
+      </div>
+      <div class="h1 pt-5" style="color: white;">
+        {{this.Course.courseName}}
+      </div>
+      <hr>
+
+      <div class="h4" style="color: white;">
+        {{this.Course.tinyDes}}
+      </div>
+      <div>
+        {{#if Course.Rating}}
+        <div class="row" style="margin-left:0px; margin-right:5px">
+          <h6 class="text-danger" style="margin-top: 1%; margin-right: 1%;"><b>{{T}}</b></h5>
+            <span class="stars-45">★★★★★</span>
+            <p class="card-text" style="font-size: 14px; margin-top: 5px; margin-left: 1%; color:darkgray;">
+              ({{format_rating Course.Rating}})</p>
+        </div>
+        {{else}}
+        <div class="row" style="margin-left:0px">
+          <span class="stars-container stars-50">★★★★★</span>
+          <p class="card-text" style="font-size: 14px; margin-top: 5px; margin-left: 1%;  color:darkgray;"> (0)
+          </p>
+        </div>
+        {{/if}}
+      </div>
+      <div class="h5" style="color:#ffdcb8;">
+        Created by: {{this.Course.teacherName}}
+      </div>
+      <div style="color: whitesmoke;">
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+        Last update: {{this.Course.LastUpdate}}
+      </div>
+      <div style="color: whitesmoke;">
+        <i class="fa fa-globe" aria-hidden="true"></i>
+        Language: English
+      </div>
+      <div style="color: whitesmoke;">
+        <i class="fa fa-subscript" aria-hidden="true"></i>
+        Subtitle:English
+      </div>
+      <hr>
+      <div class="d-flex">
+        {{!-- {{#if..this.Course.}} --}}
+        {{#and this.isAuth this.isStudent }}
+        {{#if this.Course.wishlisted}}
+        <form method="POST" action="/courses/detail/{{this.Course.courseID}}/unwishlist">
+          <button class="btn btn-outline-primary rounded border" type="submit" style="color: white;">
+            Remove from wishlist</button>
+        </form>
+        {{else}}
+        <form method="POST" action="/courses/detail/{{this.Course.courseID}}/addwishlist">
+          <button class="btn btn-outline-primary rounded border" type="submit" style="color: white;">
+            <i class="fas fa-heart    "></i>
+            Add to wishlist</button>
+        </form>
+        {{/if}}
+
+        {{#if this.isPaid}}
+        {{#if this.message}}
+        <div class="mt-3 ml-3 text-warning">
+          {{this.message}}
+        </div>
+        {{else}}
+        <form action="/course/learn/{{this.Course.courseID}}" method="GET"></form>
+        <div class="row form-group">
+          <div class="col-sm-4">
+            <div class="input-group">
+              <input type="hidden" value="{{this.Course.courseID}}" name="id">
+              <div class="input-group-append">
+                <a href="/course/learn/{{this.Course.courseID}}">
+                  <button class="btn btn-outline btn-outline-warning rounded" type="button" id="BtnSubmit">
+                    <i class="fa fa-book" aria-hidden="true"></i>
+                    Learn
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+        {{/if}}
+        {{else}}
+        <form action="/cart/add" method="POST">
+          <div class="row form-group">
+            <div class="col-sm-4">
+              <div class="input-group">
+                <input type="hidden" value="{{this.Course.courseID}}" name="id">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-warning rounded" type="submit" id="BtnSubmit">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Add to cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        {{/if}}
+        {{else}}
+        {{#if isTeacherOfCourse}}
+        <a href="/course/edit/{{this.Course.courseID}}">
+          <button class="btn btn-light rounded" type="button" id="BtnSubmit">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            Edit
+          </button>
+        </a>
+        {{/if}}
+        {{#if this.message}}
+        <div class="mt-3 ml-3 text-warning">
+          {{this.message}}
+        </div>
+        {{else}}
+        <form action="/course/learn/{{this.Course.courseID}}" method="GET"></form>
+        <div class="row form-group">
+          <div class="col-sm-4">
+            <div class="input-group">
+              <input type="hidden" value="{{this.Course.courseID}}" name="id">
+              <div class="input-group-append">
+                <a href="/course/learn/{{this.Course.courseID}}">
+                  <button class="btn btn-outline btn-outline-warning rounded" type="button" id="BtnSubmit">
+                    <i class="fa fa-book" aria-hidden="true"></i>
+                    Preview
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+        {{/if}}
+        {{/and}}
+      </div>
+    </div>
+    <div class="w-25 h-100 mx-auto mt-5">
+
+      <img style=" border-radius: 8px; border: 1px solid darkgrey;"
+        src="/design/images/course_{{this.Course.courseID}}.jpg" alt="{{this.Course.courseName}}"
+        title="{{this.Course.courseName}}" class="card-img-top">
+    </div>
+  </div>
+
+
+  <div class="w-75 mx-auto">
+    <div class="w-100 h2">
+      Description
+    </div>
+    <hr>
+    <div class="w-50" style="font-size: small;">
+      {{{this.Course.fullDes}}}
+    </div>
+
+    <div class="h2">
+      Course Content
+    </div>
+    <hr>
+    <div class="accordion mx-auto" id="accordionExample">
+      {{#each this.Course.allSection}}
+      <div class="card w-100">
+        <div class="card-header w-100" id="heading{{CourseSectionID}}" style="background-color: #00587a;">
+          <h2 class="mb-0">
+            <button class="btn btn-block text-left" type="button" data-toggle="collapse"
+              data-target="#collapse{{CourseSectionID}}" style="background-color:#00587a  ;font-size: 12pt;">
+              <strong style="color: aliceblue;">
+                {{Name}}
+              </strong>
+            </button>
+          </h2>
+          <div class="mb-0 text-left" style="font-size: 8pt;color: #e7e7de;">
+            Processing: 1/{{allVideo.length}}
+          </div>
+        </div>
+
+        <div id="collapse{{CourseSectionID}}" class="collapse show " aria-labelledby="heading"
+          data-parent="#accordionExample" style="width: 100%;">
+          <div class="card-body w-100">
+            <ul class="list-group w-100">
+              {{#each allVideo}}
+              <a href="/course/learn/{{courseID}}/{{videoid}}">
+                <li class="list-group-item list-group-item-action">
+                  <strong>
+                    {{videoIndex}}.
+                  </strong>
+                  {{videoname}}
+                </li>
+              </a>
+              {{/each}}
+              </form>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+    <div class="h2">
+      Instruction
+    </div>
+    <div>
+      <div class="h3" style="color: #00587a;">
+        <strong>
+          {{this.Course.teacherName}}
+        </strong>
+      </div>
+      <div>
+        {{this.Course.instructionInfo}}
+
+      </div>
+    </div>
+
+    <div class="h2">
+      Student feedback
+    </div>
+    {{#if this.isAuth    }}
+    {{!-- get star and feedback --}}
+    <hr>
+    <div class="input-group mb-3">
+      <form method="POST" action="/courses/detail/{{this.Course.courseID}}/addfeedback">
+        <input type="text" class="form-control" placeholder="Enter your feedback" aria-label="Recipient's username"
+          aria-describedby="basic-addon2" name="feedback">
+        <div class="text-right">
+          <div class="rate w-100">
+            <input type="radio" id="star5" name="rate" value="5"  hidden>
+            <label for="star5" title="text">5 stars</label>
+            <input type="radio" id="star4" name="rate" value="4" hidden >
+            <label for="star4" title="text">4 stars</label>
+            <input type="radio" id="star3" name="rate" value="3" hidden>
+            <label for="star3" title="text">3 stars</label>
+            <input type="radio" id="star2" name="rate" value="2" hidden >
+            <label for="star2" title="text">2 stars</label>
+            <input type="radio" id="star1" name="rate" value="1" hidden>
+            <label for="star1" title="text">1 star</label>
+          </div>
+          <button class="btn btn-outline-info rounded-0 border" type="submit">Send feedback</button>
+        </div>
+      </form>
+    </div>
+    {{/if}}
+    {{!-- get star and feedback --}}
+    <div>
+      {{#each this.Course.feedbacks}}
+      <hr>
+      <div>
+        <strong>
+          {{student.name}}
+        </strong>
+      </div>
+      <div>
+        Rating: {{Rating}}
+      </div>
+      <div>
+        {{Content}}
+      </div>
+      <hr>
+      {{/each}}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+{{#section 'js'}}
+
+<script>
+    function appeareOverview() {
+        $('#mainpage').children().remove();
+        var content = $("#overview").show().html();
+        $('#mainpage').html(content);
+    }
+
+
+</script>
+{{/section}}
+<hr>
+<div class="mt-5 ml-3 float-sm-left w-100" style="font-family:Arial, Helvetica, sans-serif">
+    <h2>
+        <strong>
+            <p class="text-left font-weight-bolder" style="color: #00587a;">{{this.Course.courseName}}</p>
+        </strong>
+        <p class="text-left" style="color:#00587a; font-size: medium;">with {{this.Course.teacherName}}</p>
+    </h2>
+</div>
+<hr>
+<div class="row w-100">
+    <div class="col-9">
+        <div>
+            <div class="plyr__video-embed w-100 " id="player">
+                <iframe width="100%" height="600" src="{{this.CurVideo}}" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+        <div>
+            <ul class="nav nav-tabs w-100" style="margin-left: 100pt;font-size: larger;">
+                <li class="nav-item-1">
+                </li>
+                <li class="nav-item-2">
+                    <a class="nav-link" onclick="appeareOverview()">Overview</a>
+                </li>
+                <li class="nav-item-3">
+                    <a class="nav-link">Rating and feedback</a>
+                </li>
+            </ul>
+        </div>
+        <div class="mt-5 w-50" id="mainpage">
+
+            
+        </div>
+    </div>
+
+    <div class="col-3 w-100">
+        <div class="accordion mx-auto" id="accordionExample">
+            {{#each this.Course.allSection}}
+            <div class="card w-100">
+                <div class="card-header w-100" id="heading{{CourseSectionID}}" style="background-color: #00587a;">
+                    <h2 class="mb-0">
+                        <button class="btn btn-block text-left" type="button" data-toggle="collapse"
+                            data-target="#collapse{{CourseSectionID}}"
+                            style="background-color:#00587a  ;font-size: 12pt;">
+                            <strong style="color: aliceblue;">
+                                {{Name}}
+                            </strong>
+                        </button>
+                    </h2>
+                    <div class="mb-0 text-left" style="font-size: 8pt;color: #e7e7de;">
+                        Processing: 1/{{allVideo.length}}
+                    </div>
+                </div>
+
+                <div id="collapse{{CourseSectionID}}" class="collapse show " aria-labelledby="heading"
+                    data-parent="#accordionExample" style="width: 100%;">
+                    <div class="card-body w-100">
+                        <ul class="list-group w-100">
+                            {{#each allVideo}}
+                            <a href="/course/learn/{{courseID}}/{{videoid}}">
+                                <li class="list-group-item list-group-item-action">
+                                    <strong>
+                                        {{videoIndex}}.
+                                    </strong>
+                                    {{videoname}}
+                                </li>
+                            </a>
+                            {{/each}}
+                            </form>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+
+
+<div id="overview"  hidden>
+    <div class="ml-5 w-100">
+        <h2>
+            About this course
+        </h2>
+        <div>
+            {{this.Course.tinyDes}}
+        </div>
+    </div>
+    <hr class="w-75">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-4">
+                Brief about course:
+            </div>
+            <div lass="col-sm-8">
+                Number of videos: 30
+                <br>
+                Language: English
+                <br>
+                Category: {{this.Course.Categoryname}}
+                <br>
+                Subcategory: {{this.Course.Subcategoryname}}
+
+            </div>
+        </div>
+        <hr class="w-75">
+        <div class="row ">
+            <div class="col-sm-4">
+                Description
+            </div>
+            <div class="col-sm-8">
+                {{{this.Course.fullDes}}}
+            </div>
+        </div>
+        <hr class="w-75">
+        <div class="row ">
+            <div class="col-sm-4">
+                Last update
+            </div>
+            <div class="col-sm-8">
+                {{{this.Course.LastUpdate}}}
+            </div>
+        </div>
+        <hr class="w-75">
+
+        <div class="row ">
+            <div class="col-sm-4">
+                Instruction
+            </div>
+            <div class="col-sm-8">
+                {{{this.Course.teacher.name}}}
+            </div>
+        </div>
+        <hr class="w-75">
+    </div>
+</div>

@@ -1,16 +1,16 @@
 import express from 'express'
 import exphbs from 'express-handlebars';
-const  hbs_sections = require('express-handlebars-sections')
 import numeral from 'numeral';
 import hbs_helpers from 'handlebars-helpers';
 import path from 'path';
+const  hbs_sections = require('express-handlebars-sections')
+
 
 hbs_helpers();
 
-export function viewMdwFunc(app:express.Express) {
+export default function viewMdw(app:express.Express) {
     app.set('view engine', 'hbs');
     app.set('views', path.join(__dirname, '../views'));
-    //hbs.registerPartials(__dirname + '/src/views/partials');
 
     app.engine('hbs', exphbs({
         defaultLayout: 'bs4.hbs',

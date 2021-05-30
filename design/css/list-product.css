@@ -1,0 +1,114 @@
+.secsion-header-title h3 {
+  font-weight: bold;
+  color: #283657;
+}
+
+.secsion-orderby {
+  text-align: right;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 920px) {
+  .secsion-orderby {
+    text-align: left;
+  }
+}
+
+.list-product {
+  margin-top: 2rem !important;
+  padding: 0 !important;
+}
+
+.list-product .item-product {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0 !important;
+}
+
+.list-product .item-product .buy {
+  margin-top: auto;
+  justify-self: flex-end;
+}
+
+.list-product .item-product .buy a {
+  width: 100% !important;
+  border-radius: 0 !important;
+}
+
+.list-product > .row {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 1rem 0;
+}
+
+.list-product .item-product {
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+}
+
+.list-product .item-product:nth-child(4n + 1) {
+  padding-left: 0 !important;
+  padding-right: 1rem !important;
+}
+
+.list-product .item-product:nth-child(4n) {
+  padding-left: 1rem !important;
+  padding-right: 0 !important;
+}
+
+@media (max-width: 920px) {
+  .list-product .item-product {
+    padding: 0 !important;
+  }
+  .list-product .item-product:nth-child(2n + 1) {
+    padding-left: 0 !important;
+    padding-right: 0.8rem !important;
+  }
+
+  .list-product .item-product:nth-child(2n) {
+    padding-left: 0.8rem !important;
+    padding-right: 0 !important;
+  }
+}
+
+.item-product .des-product {
+  padding: 0.5rem 0;
+}
+
+.des-product .name {
+  font-weight: bold;
+  font-size: 1rem;
+  color: black !important;
+  text-decoration: none !important;
+}
+
+.des-product .name:hover {
+  color: rgb(250, 118, 69) !important;
+}
+
+.des-product .rate {
+  font-size: 1.1rem;
+  color: rgb(74, 144, 226) !important;
+  text-decoration: none !important;
+}
+
+.item-product .des-product .price {
+  padding: 0.7rem 0;
+  margin: 0;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.item-product .buy a {
+  color: black;
+  border: 1px solid black;
+}
+
+.item-product .buy a:hover {
+  color: white;
+  border: #f26101 solid black;
+  background-color: #f26101;
+  border: 1px solid#F26101;
+}

@@ -4,7 +4,7 @@
 	<aside id="fh5co-hero">
 		<div class="flexslider">
 			<ul class="slides">
-				<li style="background-image: url(/design/images/KHTN.jpg);">
+				<li style="background-image: url(../design/images/KHTN.jpg);">
 					<div class="overlay-gradient"></div>
 					<div class="container">
 						<div class="row">
@@ -19,7 +19,7 @@
 						</div>
 					</div>
 				</li>
-				<li style="background-image: url(/design/images/KHTN.jpg);">
+				<li style="background-image: url(../design/images/KHTN.jpg);">
 					<div class="overlay-gradient"></div>
 					<div class="container">
 						<div class="row">
@@ -34,7 +34,7 @@
 						</div>
 					</div>
 				</li>
-				<li style="background-image: url(/design/images/KHTN.jpg);">
+				<li style="background-image: url(../design/images/KHTN.jpg);">
 					<div class="overlay-gradient"></div>
 					<div class="container">
 						<div class="row">
@@ -65,35 +65,35 @@
 		<div class="carousel-inner" role="listbox">
 			<div class="item active">
 				<div class="row">
-					{{!-- {{#each highlightCourse}}
+					{{#each highlightCourse}}
 					<div class="col-md-3 col-sm-6 text-center animate-box">
 						<div class="card h-100">
-							<img src="/design/images/course_{{this.CoursesID}}.jpg" alt="{{this.Name}}"
-								title="{{this.Name}}" class="card-img-top">
+							<img src="../design/images/course_{{this.id}}.jpg" alt="{{this.name}}"
+								title="{{this.name}}" class="card-img-top">
 							<div class="card-body">
-								<h6 class="card-title">{{this.Name}}</h6>
-								<h5 class="card-title text-danger">{{format_number this.Price}}</h5>
+								<h6 class="card-title">{{this.name}}</h6>
+								<h5 class="card-title text-danger">{{format_number this.price}}</h5>
 								<p
 									style="vertical-align: middle;text-align: center; margin: 0 15px; max-width:240px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-									{{this.TinyDes}}</p>
+									{{this.tinyDes}}</p>
 							</div>
 							<div class="card-footer text-muted">
-								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.CoursesID}}"
+								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.id}}"
 									role="button">
 									<i class="fa fa-eye" aria-hidden="true"></i>
 									Details
 								</a>
-								{{!-- {{#if ../auth}} lấy auth của hiện tại 
-								<a data-id="{{this.CoursesID}}" class="btn btn-sm btn-outline-success addItem"
+								{{!-- {{#if ../auth}} lấy auth của hiện tại --}}
+								<a data-id="{{this.id}}" class="btn btn-sm btn-outline-success addItem"
 									href="javascript:;" role="button">
 									<i class="fa fa-cart-plus" aria-hidden="true"></i>
 									Add to cart
 								</a>
-								{{!-- {{/if}} 
+								{{!-- {{/if}} --}}
 							</div>
 						</div>
 					</div>
-					{{/each}} --}}
+					{{/each}}
 				</div>
 			</div>
 		</div>
@@ -115,102 +115,102 @@
 		<div class="carousel-inner" role="listbox">
 			<div class="item active">
 				<div class="row">
-					{{!-- {{#each bestViewCourse.[0]}}
+					{{#each bestViewCourse.[0]}}
 					<div class="col-md-3 col-sm-6 text-center animate-box">
 						<div class="card h-100">
-							<img src="/design/images/course_{{this.CoursesID}}.jpg" alt="{{this.Name}}"
-								title="{{this.Name}}" class="card-img-top">
+							<img src="..../design/images/course_{{this.id}}.jpg" alt="{{this.name}}"
+								title="{{this.name}}" class="card-img-top">
 							<div class="card-body">
-								<h6 class="card-title">{{this.Name}}</h6>
-								<h5 class="card-title text-danger">{{format_number this.Price}}</h5>
+								<h6 class="card-title">{{this.name}}</h6>
+								<h5 class="card-title text-danger">{{format_number this.price}}</h5>
 								<p
 									style="vertical-align: middle;text-align: center; margin: 0 15px; max-width:240px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-									{{this.TinyDes}}
+									{{this.tinyDes}}
 								</p>
 							</div>
 							<div class="card-footer text-muted">
-								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.CoursesID}}"
+								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.id}}"
 									role="button">
 									<i class="fa fa-eye" aria-hidden="true"></i>
 									Details
 								</a>
-								{{!-- {{#if ../auth}} lấy auth của hiện tại 
-								<a data-id="{{this.CoursesID}}" class="btn btn-sm btn-outline-success addItem"
+								{{!-- {{#if ../auth}} lấy auth của hiện tại --}}
+								<a data-id="{{this.id}}" class="btn btn-sm btn-outline-success addItem"
 									href="javascript:;" role="button">
 									<i class="fa fa-cart-plus" aria-hidden="true"></i>
 									Add to cart
 								</a>
-								{{!-- {{/if}}
+								{{!-- {{/if}} --}}
 							</div>
 						</div>
 					</div>
-					{{/each}} --}}
+					{{/each}}
 				</div>
 			</div>
 			<div class="item">
 				<div class="row">
-					{{!-- {{#each bestViewCourse.[1]}}
+					{{#each bestViewCourse.[1]}}
 					<div class="col-md-3 col-sm-6 text-center animate-box">
 						<div class="card h-100">
-							<img src="/design/images/course_{{this.CoursesID}}.jpg" alt="{{this.Name}}"
-								title="{{this.Name}}" class="card-img-top">
+							<img src="../design/images/course_{{this.id}}.jpg" alt="{{this.name}}"
+								title="{{this.name}}" class="card-img-top">
 							<div class="card-body">
-								<h6 class="card-title">{{this.Name}}</h6>
-								<h5 class="card-title text-danger">{{format_number this.Price}}</h5>
+								<h6 class="card-title">{{this.name}}</h6>
+								<h5 class="card-title text-danger">{{format_number this.price}}</h5>
 								<p
 									style="vertical-align: middle;text-align: center; margin: 0 15px; max-width:240px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-									{{this.TinyDes}}</p>
+									{{this.tinyDes}}</p>
 							</div>
 							<div class="card-footer text-muted">
-								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.CoursesID}}"
+								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.id}}"
 									role="button">
 									<i class="fa fa-eye" aria-hidden="true"></i>
 									Details
 								</a>
-								{{!-- {{#if ../auth}} lấy auth của hiện tại 
-								<a data-id="{{this.CoursesID}}" class="btn btn-sm btn-outline-success addItem"
+								{{!-- {{#if ../auth}} lấy auth của hiện tại --}}
+								<a data-id="{{this.id}}" class="btn btn-sm btn-outline-success addItem"
 									href="javascript:;" role="button">
 									<i class="fa fa-cart-plus" aria-hidden="true"></i>
 									Add to cart
 								</a>
-								{{!-- {{/if}} 
+								{{!-- {{/if}} --}}
 							</div>
 						</div>
 					</div>
-					{{/each}} --}}
+					{{/each}}
 				</div>
 			</div>
 			<div class="item">
 				<div class="row">
-					{{!-- {{#each bestViewCourse.[2]}}
+					{{#each bestViewCourse.[2]}}
 					<div class="col-md-3 col-sm-6 text-center animate-box">
 						<div class="card h-100">
-							<img src="/design/images/course_{{this.CoursesID}}.jpg" alt="{{this.Name}}"
-								title="{{this.Name}}" class="card-img-top">
+							<img src="../design/images/course_{{this.id}}.jpg" alt="{{this.name}}"
+								title="{{this.name}}" class="card-img-top">
 							<div class="card-body">
-								<h6 class="card-title">{{this.Name}}</h6>
-								<h5 class="card-title text-danger">{{format_number this.Price}}</h5>
+								<h6 class="card-title">{{this.name}}</h6>
+								<h5 class="card-title text-danger">{{format_number this.price}}</h5>
 								<p
 									style="vertical-align: middle;text-align: center; margin: 0 15px; max-width:240px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-									{{this.TinyDes}}</p>
+									{{this.tinyDes}}</p>
 							</div>
 							<div class="card-footer text-muted">
-								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.CoursesID}}"
+								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.id}}"
 									role="button">
 									<i class="fa fa-eye" aria-hidden="true"></i>
 									Details
 								</a>
-								{{!-- {{#if ../auth}} lấy auth của hiện tại 
-								<a data-id="{{this.CoursesID}}" class="btn btn-sm btn-outline-success addItem"
+								{{!-- {{#if ../auth}} lấy auth của hiện tại --}}
+								<a data-id="{{this.id}}" class="btn btn-sm btn-outline-success addItem"
 									href="javascript:;" role="button">
 									<i class="fa fa-cart-plus" aria-hidden="true"></i>
 									Add to cart
 								</a>
-								{{!-- {{/if}} -
+								{{!-- {{/if}} --}}
 							</div>
 						</div>
 					</div>
-					{{/each}} --}}
+					{{/each}}
 				</div>
 			</div>
 		</div>
@@ -242,101 +242,101 @@
 		<div class="carousel-inner" role="listbox">
 			<div class="item active">
 				<div class="row">
-					{{!-- {{#each topProducts.[0]}}
+					{{#each topProducts.[0]}}
 					<div class="col-md-3 col-sm-6 text-center animate-box">
 						<div class="card h-100">
-							<img src="/design/images/course_{{this.CoursesID}}.jpg" alt="{{this.Name}}"
-								title="{{this.Name}}" class="card-img-top">
+							<img src="../design/images/course_{{this.id}}.jpg" alt="{{this.name}}"
+								title="{{this.name}}" class="card-img-top">
 							<div class="card-body">
-								<h6 class="card-title">{{this.Name}}</h6>
-								<h5 class="card-title text-danger">{{format_number this.Price}}</h5>
+								<h6 class="card-title">{{this.name}}</h6>
+								<h5 class="card-title text-danger">{{format_number this.price}}</h5>
 								<p
 									style="vertical-align: middle;text-align: center; margin: 0 15px; max-width:240px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-									{{this.TinyDes}}</p>
+									{{this.tinyDes}}</p>
 							</div>
 							<div class="card-footer text-muted">
-								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.CoursesID}}"
+								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.id}}"
 									role="button">
 									<i class="fa fa-eye" aria-hidden="true"></i>
 									Details
 								</a>
-								{{!-- {{#if ../auth}} lấy auth của hiện tại 
-								<a data-id="{{this.CoursesID}}" class="btn btn-sm btn-outline-success addItem"
+								{{!-- {{#if ../auth}} lấy auth của hiện tại --}}
+								<a data-id="{{this.id}}" class="btn btn-sm btn-outline-success addItem"
 									href="javascript:;" role="button">
 									<i class="fa fa-cart-plus" aria-hidden="true"></i>
 									Add to cart
 								</a>
-								{{!-- {{/if}} 
+								{{!-- {{/if}} --}}
 							</div>
 						</div>
 					</div>
-					{{/each}} --}}
+					{{/each}}
 				</div>
 			</div>
 			<div class="item">
 				<div class="row">
-					{{!-- {{#each topProducts.[1]}}
+					{{#each topProducts.[1]}}
 					<div class="col-md-3 col-sm-6 text-center animate-box">
 						<div class="card h-100">
-							<img src="/design/images/course_{{this.CoursesID}}.jpg" alt="{{this.Name}}"
-								title="{{this.Name}}" class="card-img-top">
+							<img src="../design/images/course_{{this.id}}.jpg" alt="{{this.name}}"
+								title="{{this.name}}" class="card-img-top">
 							<div class="card-body">
-								<h6 class="card-title">{{this.Name}}</h6>
-								<h5 class="card-title text-danger">{{format_number this.Price}}</h5>
+								<h6 class="card-title">{{this.name}}</h6>
+								<h5 class="card-title text-danger">{{format_number this.price}}</h5>
 								<p
 									style="vertical-align: middle;text-align: center; margin: 0 15px; max-width:240px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-									{{this.TinyDes}}</p>
+									{{this.tinyDes}}</p>
 							</div>
 							<div class="card-footer text-muted">
-								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.CoursesID}}"
+								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.id}}"
 									role="button">
 									<i class="fa fa-eye" aria-hidden="true"></i>
 									Details
 								</a>
-								{{!-- {{#if ../auth}} lấy auth của hiện tại 
-								<a data-id="{{this.CoursesID}}" class="btn btn-sm btn-outline-success addItem"
+								{{!-- {{#if ../auth}} lấy auth của hiện tại --}}
+								<a data-id="{{this.id}}" class="btn btn-sm btn-outline-success addItem"
 									href="javascript:;" role="button">
 									<i class="fa fa-cart-plus" aria-hidden="true"></i>
 									Add to cart
 								</a>
-								{{!-- {{/if}} 
+								{{!-- {{/if}} --}}
 							</div>
 						</div>
 					</div>
-					{{/each}} --}}
+					{{/each}}
 				</div>
 			</div>
 			<div class="item">
 				<div class="row">
-					{{!-- {{#each topProducts.[2]}}
+					{{#each topProducts.[2]}}
 					<div class="col-md-3 col-sm-6 text-center animate-box">
 						<div class="card h-100">
-							<img src="/design/images/course_{{this.CoursesID}}.jpg" alt="{{this.Name}}"
-								title="{{this.Name}}" class="card-img-top">
+							<img src="../design/images/course_{{this.id}}.jpg" alt="{{this.name}}"
+								title="{{this.name}}" class="card-img-top">
 							<div class="card-body">
-								<h6 class="card-title">{{this.Name}}</h6>
-								<h5 class="card-title text-danger">{{format_number this.Price}}</h5>
+								<h6 class="card-title">{{this.name}}</h6>
+								<h5 class="card-title text-danger">{{format_number this.price}}</h5>
 								<p
 									style="vertical-align: middle;text-align: center; margin: 0 15px; max-width:240px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-									{{this.TinyDes}}</p>
+									{{this.tinyDes}}</p>
 							</div>
 							<div class="card-footer text-muted">
-								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.CoursesID}}"
+								<a class="btn btn-sm btn-outline-primary" href="/courses/detail/{{this.id}}"
 									role="button">
 									<i class="fa fa-eye" aria-hidden="true"></i>
 									Details
 								</a>
-								{{!-- {{#if ../auth}} lấy auth của hiện tại 
-								<a data-id="{{this.CoursesID}}" class="btn btn-sm btn-outline-success addItem"
+								{{!-- {{#if ../auth}} lấy auth của hiện tại --}}
+								<a data-id="{{this.id}}" class="btn btn-sm btn-outline-success addItem"
 									href="javascript:;" role="button">
 									<i class="fa fa-cart-plus" aria-hidden="true"></i>
 									Add to cart
 								</a>
-								{{!-- {{/if}} 
+								{{!-- {{/if}} --}}
 							</div>
 						</div>
 					</div>
-					{{/each}} --}}
+					{{/each}}
 				</div>
 			</div>
 		</div>
@@ -359,13 +359,13 @@
 			</div>
 		</div>
 		<div class="row">
-			{{!-- {{#each highlightCategories}}
+			{{#each highlightCategories}}
 			<div class="col-md-6 animate-box">
 				<div class="course">
-					<a href="/courses/bySubCat/{{SubCategoryID}}" class="course-img" style="background-image: url(/design/images/subcategories_{{this.SubCategoryID}}.jpg);">
+					<a href="/courses/bySubCat/{{SubCategoryID}}" class="course-img" style="background-image: url(../design/images/subcategories_{{this.SubCategoryID}}.jpg);">
 					</a>
 					<div class="desc">
-						<h3><a href="/courses/bySubCat/{{SubCategoryID}}">{{this.Name}}</a></h3>
+						<h3><a href="/courses/bySubCat/{{SubCategoryID}}">{{this.name}}</a></h3>
 						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem
 							provident. Odit ab aliquam dolor eius molestias accusamus alias autem provident. Odit ab
 							aliquam dolor eius.</p>
@@ -373,12 +373,12 @@
 					</div>
 				</div>
 			</div>
-			{{/each}} --}}
+			{{/each}}
 		</div>
 </div>
 
 
-<div id="fh5co-counter" class="fh5co-counters" style="background-image: url(/design/images/img_bg_4.jpg);"
+<div id="fh5co-counter" class="fh5co-counters" style="background-image: url(../design/images/img_bg_4.jpg);"
 	data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 	<div class="container">

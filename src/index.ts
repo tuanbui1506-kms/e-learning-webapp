@@ -1,14 +1,23 @@
-import express from 'express'
-import {routeFunc as routeMdwFunc} from './middlewares/route.mdw';
-import {viewMdwFunc} from './middlewares/view.mdw';
+import express from 'express';
+import route from './middlewares/routes.mdw';
+import viewMdw from './middlewares/view.mdw';
+import  sessionMdw from './middlewares/session.mdw';
+import localMdw from './middlewares/local.mdw';
 import morgan from 'morgan'
 
-const app:express.Express = express();
-const PORT:number = (process.env.PORT || 3000) as number;
+const app = express();
+const PORT = (process.env.PORT || 3000) as number;
 
-routeMdwFunc(app);
-viewMdwFunc(app);
+
+viewMdw(app);
+sessionMdw(app);
+localMdw(app);
+
+app.use(express.urlencoded());
 app.use(morgan('tiny'));
+app.use(route)
+
+
 app.use((req:express.Request,res:express.Response) =>{
     res.send("Hello there!!")
 })

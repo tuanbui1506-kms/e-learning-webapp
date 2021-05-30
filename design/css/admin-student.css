@@ -1,0 +1,31 @@
+td {
+  word-wrap: break-word;
+}
+
+.id {
+  color: #f26101;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.search-bar {
+  width: 50%;
+  margin-bottom: 1rem;
+}
+
+.add-student {
+  margin-bottom: 1rem;
+}
+
+.add-student-btn {
+  background-color: #f26101 !important;
+  color: white !important;
+  font-weight: bold !important;
+  border-radius: 0 !important;
+}
+
+.add-student-btn:hover {
+  background-color: black !important;
+}

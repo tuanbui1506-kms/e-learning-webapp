@@ -1,0 +1,82 @@
+.img-banner {
+  width: 100%;
+}
+
+.img-shortcut {
+  position: relative;
+  text-align: center;
+}
+
+.content-shortcut {
+  width: 100%;
+  height: 100%;
+  color: white;
+  background-color: #0009;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0;
+  transition: 0.5s ease;
+}
+
+.des-shortcut {
+  padding-top: 0.5rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  color: #283657;
+}
+
+.secsion-first--shortcut a:hover .content-shortcut {
+  opacity: 1;
+}
+
+.secsion-top-product .item-product {
+  display: flex;
+  flex-direction: column;
+}
+
+.secsion-top-product .item-product .price {
+  margin-top: auto;
+  padding: 0.5rem 0;
+  font-weight: bold;
+  justify-self: end;
+}
+
+.secsion-top-product .item-product .name {
+  color: black !important;
+  text-decoration: none !important;
+  font-weight: bold;
+}
+
+.secsion-top-product .item-product .name:hover {
+  color: rgb(250, 118, 69) !important;
+}
+
+.carousel-control-prev-icon {
+  margin-right: auto;
+}
+
+.carousel-control-next-icon {
+  margin-left: auto;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  display: inline-block;
+  background: transparent no-repeat center center;
+  background-size: 100% 100%;
+  height: 2rem !important;
+  width: 2rem !important;
+}
+
+.carousel-control-next:hover,
+.carousel-control-prev:hover /*, .carousel-indicators */ {
+  filter: invert(100%);
+}

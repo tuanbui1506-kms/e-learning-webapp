@@ -26,7 +26,7 @@ const orderModel = {
         UID: UID,
         total: totalPrice
       }
-      const [resultOrder, fields] = await db.add1(orderEntity, 'orders');
+      const [resultOrder, fields] = await db.add(orderEntity, 'orders');
      
       
       if (resultOrder.insertId){
@@ -36,7 +36,7 @@ const orderModel = {
             CoursesID: course.id,
             Price: course.price
           }
-          const [resultOrderDetail, fields] = await db.add1(orderDetailEntity, 'orderdetails');
+          const [resultOrderDetail, fields] = await db.add(orderDetailEntity, 'orderdetails');
         })
       }
     }

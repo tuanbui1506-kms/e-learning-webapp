@@ -10,13 +10,13 @@ export async function load(sql: string) {
     return promisePool.query<RowDataPacket[]>(sql)
 };
 
+// export async function add(entity: any, table_name: string) {
+//     const sql = `insert into ${table_name} set ?`;
+//     return promisePool.query<RowDataPacket[]>(sql, entity);
+// };
+
+
 export async function add(entity: any, table_name: string) {
-    const sql = `insert into ${table_name} set ?`;
-    return promisePool.query<RowDataPacket[]>(sql, entity);
-};
-
-
-export async function add1(entity: any, table_name: string) {
     const sql = `insert into ${table_name} set ?`;
     return promisePool.query<ResultSetHeader>(sql, entity);
 };

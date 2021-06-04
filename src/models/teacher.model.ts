@@ -36,9 +36,9 @@ const teacherModel = {
         return rows.length == 0 ? null : Teacher.transform(rows[0]);
     },
 
-    async add(teacher: Teacher): Promise<Teacher | null> {
+    async add(teacher: Teacher) {
         const [result, fields] = await db.add(teacher, 'teachers');
-        return result.length == 0 ? null : Teacher.transform(result[0]);
+        return result;
     },
 
     // async countNumber() {

@@ -78,6 +78,10 @@ router.get('/detail/:CourseID', async function (req, res) { //trang chứa detai
                 if (req.session.authUser.ID !== undefined) {
                     wishlisted = await courseModel.checkWishList(courseID, req.session.authUser.ID);
                     isPaid = await courseModel.checkPaid(courseID, req.session.authUser.ID);
+                    console.log("CourseID" + courseID);
+                    console.log("user" + req.session.authUser.ID);
+                    console.log("IsPaid:" + isPaid);
+                    
                 } else {
                     isTeacherOfCourse = (req.session.authUser.ID === teacher.UID);
                 }

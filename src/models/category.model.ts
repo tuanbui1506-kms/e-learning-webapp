@@ -52,10 +52,10 @@ const categoryModel = {
 
   },
 
-  async add(category: Category):Promise<Category|null> {
+  async add(category: Category){
     const [result, fields] = await db.add(category, 'categories');
     // console.log(result);
-    return result.length == 0 ? null : Category.transform(result[0]);
+    return result;
 
   },
 

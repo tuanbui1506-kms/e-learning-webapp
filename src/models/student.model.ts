@@ -44,7 +44,7 @@ const studentModel  = {
             UID:student.UID
         }
         const [result, fields] = await db.add(studentEntity, STUDENT_PROPERTIES.table_name);
-        return result[0];
+        return result;
     },
     async largest_ID():Promise<number>{
         const [result, fields] = await db.largest_ID(STUDENT_PROPERTIES.pk, STUDENT_PROPERTIES.table_name);

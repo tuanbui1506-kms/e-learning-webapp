@@ -124,7 +124,7 @@ const courseModel = {
             Sale: course.sale
 
         }
-        const [rows, field] = await db.add1(courseEntity, 'courses');
+        const [rows, field] = await db.add(courseEntity, 'courses');
 
         return rows.insertId;
     },
@@ -136,7 +136,7 @@ const courseModel = {
             Name: video.name
         }
         try {
-            const [result, field] = await db.add1(videoEntity, 'video');
+            const [result, field] = await db.add(videoEntity, 'video');
 
             fs.appendFile(`video/${courseID}/${videoEntity.CourseSectionID}/${result.insertId}.txt`, '', function (err) {
                 if (err) throw err;
@@ -158,7 +158,7 @@ const courseModel = {
         }
         console.log(courseSectionEntity);
 
-        const [result, field] = await db.add1(courseSectionEntity, 'coursesection');
+        const [result, field] = await db.add(courseSectionEntity, 'coursesection');
         const dir = `video/${courseID}/${result.insertId}`;
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir);
@@ -319,7 +319,7 @@ const courseModel = {
             CourseID: courseID
         }
         const [result, fields] = await db.add(wishlist, 'watchlist');
-        return result[0];
+        return result;
     },
     async removeWishList(courseID: number, UserID: string) {
         const sql = `delete from watchlist where UserID = '${UserID}'  and   CourseID = ${courseID}`;
@@ -332,8 +332,9 @@ const courseModel = {
         return result.length > 0;
     },
     async checkPaid(CourseID: number, UserID: string) {
-        const sql = `select * from orderdetails join orders on orderdetails.ID = orders.OrderID
-         where UID = '${UserID}' and CoursesID = ${CourseID}`
+        const sql = `select * 
+        from orderdetails  join orders on orderdetails.OrderID = orders.OrderID
+        where UID = '${UserID}' and CoursesID = ${CourseID}`
         const [result, fields] = await db.load(sql)
         return result.length > 0;
     },
@@ -359,7 +360,7 @@ const courseModel = {
             Rating: feedback.rating
         }
         const [result, fields] = await db.add(feedbackEntity, 'feedback');
-        return result[0];
+        return result;
     },
     async getAllFeedback(CourseID: number) {
         const sql = `select *

@@ -3,7 +3,7 @@ rebuild e-learning web app using TypeScript
 ## How to run
 ### 1. Run command `git clone https://github.com/tuanbui1506-kms/e-learning-webapp`
 ### 2. `yarn install`
-### 3. `Run SQL script`
+### 3. Run SQL script
 - Run `quanlykhoahoc.sql`
 - Update `dbConfig` in `src/config/`
 ### 4. Run `yarn start`

@@ -25,7 +25,7 @@ export async function single(id: number): Promise<User | null> {
     return rows.length == 0 ? null : User.transform(rows[0]);
 };
 
-export async function add(user: string) {
+export async function add(user: User) {
     const [result, fields] = await db.add(user, 'users');
     // console.log(result);
     return result;

@@ -146,11 +146,11 @@
         {{/if}}
       </div>
       <div class="h5" style="color:#ffdcb8;">
-        Created by: {{this.Course.teacherName}}
+        Created by: {{this.Course.teacher.name}}
       </div>
       <div style="color: whitesmoke;">
         <i class="fa fa-info-circle" aria-hidden="true"></i>
-        Last update: {{this.Course.LastUpdate}}
+        Last update: {{this.Course.lastUpdate}}
       </div>
       <div style="color: whitesmoke;">
         <i class="fa fa-globe" aria-hidden="true"></i>
@@ -164,13 +164,13 @@
       <div class="d-flex">
         {{!-- {{#if..this.Course.}} --}}
         {{#and this.isAuth this.isStudent }}
-        {{#if this.Course.wishlisted}}
-        <form method="POST" action="/courses/detail/{{this.Course.courseID}}/unwishlist">
+        {{#if wishlisted}}
+        <form method="POST" action="/courses/detail/{{this.Course.id}}/unwishlist">
           <button class="btn btn-outline-primary rounded border" type="submit" style="color: white;">
             Remove from wishlist</button>
         </form>
         {{else}}
-        <form method="POST" action="/courses/detail/{{this.Course.courseID}}/addwishlist">
+        <form method="POST" action="/courses/detail/{{this.Course.id}}/addwishlist">
           <button class="btn btn-outline-primary rounded border" type="submit" style="color: white;">
             <i class="fas fa-heart    "></i>
             Add to wishlist</button>
@@ -183,13 +183,13 @@
           {{this.message}}
         </div>
         {{else}}
-        <form action="/course/learn/{{this.Course.courseID}}" method="GET"></form>
+        <form action="/course/learn/{{this.Course.id}}" method="GET"></form>
         <div class="row form-group">
           <div class="col-sm-4">
             <div class="input-group">
-              <input type="hidden" value="{{this.Course.courseID}}" name="id">
+              <input type="hidden" value="{{this.Course.id}}" name="id">
               <div class="input-group-append">
-                <a href="/course/learn/{{this.Course.courseID}}">
+                <a href="/course/learn/{{this.Course.id}}">
                   <button class="btn btn-outline btn-outline-warning rounded" type="button" id="BtnSubmit">
                     <i class="fa fa-book" aria-hidden="true"></i>
                     Learn
@@ -206,7 +206,7 @@
           <div class="row form-group">
             <div class="col-sm-4">
               <div class="input-group">
-                <input type="hidden" value="{{this.Course.courseID}}" name="id">
+                <input type="hidden" value="{{this.Course.id}}" name="id">
                 <div class="input-group-append">
                   <button class="btn btn-outline-warning rounded" type="submit" id="BtnSubmit">
                     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -221,7 +221,7 @@
         {{/if}}
         {{else}}
         {{#if isTeacherOfCourse}}
-        <a href="/course/edit/{{this.Course.courseID}}">
+        <a href="/course/edit/{{this.Course.id}}">
           <button class="btn btn-light rounded" type="button" id="BtnSubmit">
             <i class="fa fa-pencil" aria-hidden="true"></i>
             Edit
@@ -233,13 +233,13 @@
           {{this.message}}
         </div>
         {{else}}
-        <form action="/course/learn/{{this.Course.courseID}}" method="GET"></form>
+        <form action="/course/learn/{{this.Course.id}}" method="GET"></form>
         <div class="row form-group">
           <div class="col-sm-4">
             <div class="input-group">
-              <input type="hidden" value="{{this.Course.courseID}}" name="id">
+              <input type="hidden" value="{{this.Course.id}}" name="id">
               <div class="input-group-append">
-                <a href="/course/learn/{{this.Course.courseID}}">
+                <a href="/course/learn/{{this.Course.id}}">
                   <button class="btn btn-outline btn-outline-warning rounded" type="button" id="BtnSubmit">
                     <i class="fa fa-book" aria-hidden="true"></i>
                     Preview
@@ -257,8 +257,8 @@
     <div class="w-25 h-100 mx-auto mt-5">
 
       <img style=" border-radius: 8px; border: 1px solid darkgrey;"
-        src="/design/images/course_{{this.Course.courseID}}.jpg" alt="{{this.Course.courseName}}"
-        title="{{this.Course.courseName}}" class="card-img-top">
+        src="/design/images/course_{{this.Course.id}}.jpg" alt="{{this.Course.name}}"
+        title="{{this.Course.name}}" class="card-img-top">
     </div>
   </div>
 
@@ -277,33 +277,33 @@
     </div>
     <hr>
     <div class="accordion mx-auto" id="accordionExample">
-      {{#each this.Course.allSection}}
+      {{#each this.Course.courseSection}}
       <div class="card w-100">
-        <div class="card-header w-100" id="heading{{CourseSectionID}}" style="background-color: #00587a;">
+        <div class="card-header w-100" id="heading{{id}}" style="background-color: #00587a;">
           <h2 class="mb-0">
             <button class="btn btn-block text-left" type="button" data-toggle="collapse"
-              data-target="#collapse{{CourseSectionID}}" style="background-color:#00587a  ;font-size: 12pt;">
+              data-target="#collapse{{id}}" style="background-color:#00587a  ;font-size: 12pt;">
               <strong style="color: aliceblue;">
-                {{Name}}
+                {{name}}
               </strong>
             </button>
           </h2>
           <div class="mb-0 text-left" style="font-size: 8pt;color: #e7e7de;">
-            Processing: 1/{{allVideo.length}}
+            Processing: 1/{{video.length}}
           </div>
         </div>
 
-        <div id="collapse{{CourseSectionID}}" class="collapse show " aria-labelledby="heading"
+        <div id="collapse{{id}}" class="collapse show " aria-labelledby="heading"
           data-parent="#accordionExample" style="width: 100%;">
           <div class="card-body w-100">
             <ul class="list-group w-100">
-              {{#each allVideo}}
-              <a href="/course/learn/{{courseID}}/{{videoid}}">
+              {{#each videos}}
+              <a href="/course/learn/{{../../this.Course.id}}/{{id}}">
                 <li class="list-group-item list-group-item-action">
                   <strong>
-                    {{videoIndex}}.
+                    {{@index}}.
                   </strong>
-                  {{videoname}}
+                  {{name}}
                 </li>
               </a>
               {{/each}}
@@ -320,12 +320,11 @@
     <div>
       <div class="h3" style="color: #00587a;">
         <strong>
-          {{this.Course.teacherName}}
+          {{this.Course.teacher.name}}
         </strong>
       </div>
       <div>
-        {{this.Course.instructionInfo}}
-
+         {{this.instructionInfo}}
       </div>
     </div>
 
@@ -336,8 +335,8 @@
     {{!-- get star and feedback --}}
     <hr>
     <div class="input-group mb-3">
-      <form method="POST" action="/courses/detail/{{this.Course.courseID}}/addfeedback">
-        <input type="text" class="form-control" placeholder="Enter your feedback" aria-label="Recipient's username"
+      <form method="POST" action="/courses/detail/{{this.Course.id}}/addfeedback">
+        <input type="text" class="form-control" placeholder="Enter your feedback" aria-label= "Recipient's username"
           aria-describedby="basic-addon2" name="feedback">
         <div class="text-right">
           <div class="rate w-100">
@@ -359,7 +358,7 @@
     {{/if}}
     {{!-- get star and feedback --}}
     <div>
-      {{#each this.Course.feedbacks}}
+      {{#each this.feedbacks}}
       <hr>
       <div>
         <strong>
@@ -367,10 +366,10 @@
         </strong>
       </div>
       <div>
-        Rating: {{Rating}}
+        Rating: {{rating}}
       </div>
       <div>
-        {{Content}}
+        {{content}}
       </div>
       <hr>
       {{/each}}

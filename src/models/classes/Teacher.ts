@@ -1,7 +1,7 @@
 import { RowDataPacket } from "mysql2";
 
 class Teacher{
-    teaID: number;
+    teaID?: number;
     name: string;
     dob: string;
     email: string;
@@ -18,7 +18,7 @@ class Teacher{
     static transform(row: RowDataPacket): Teacher {
         let teacher: Teacher = {
             teaID: row['TeaID'],
-            name: row['name'],
+            name: row['teaName'],
             dob: row['dob'],
             email: row['email'],
             gender: row['gender'],

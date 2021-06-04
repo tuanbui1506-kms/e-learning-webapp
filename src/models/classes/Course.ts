@@ -1,4 +1,6 @@
 import { RowDataPacket } from "mysql2";
+import CourseSection from "./CoursesSection";
+import Feedback from "./Feedback";
 import SubCategory from "./SubCategory";
 import Teacher from "./Teacher";
 
@@ -16,6 +18,9 @@ class Course {
     accessNum?: number;
     nRegister?: number;
     sale?: number;
+    courseSection: CourseSection[] = [];
+    feedback:Feedback[] = [];
+
     constructor(id: number, name: string, tinyDes: string, fullDes: string, price: number, isFinished: boolean, lastUpdated: string, dateCreated: string, accessNum: number, nRegister: number, sale: number) {
         this.id = id;
         this.name = name;
@@ -31,8 +36,8 @@ class Course {
     };
     static transform(row: RowDataPacket): Course {
         return new Course(
-            row['CourseID'],
-            row['name'],
+            row['CoursesID'],
+            row['Name'],
             row['TinyDes'],
             row['FullDes'],
             row['Price'],

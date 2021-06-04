@@ -8,10 +8,18 @@ import courseModel from '../models/course.model';
 import * as userModel from '../models/user.model';
 import { truncate } from 'fs';
 import studentModel from '../models/student.model';
-// import processModel from '../models/process.model';
+import pro from '../models/process.model';
 // import { paginate } from './../config/default.json';
 import multer from 'multer';
 import Course from '../models/classes/Course';
+import Video from '../models/classes/Video';
+import CourseSection from '../models/classes/CoursesSection';
+import SubCategory from '../models/classes/SubCategory';
+import processModel from '../models/process.model';
+import Process from '../models/classes/Process';
+import Category from '../models/classes/Category';
+import subCategoryModel from '../models/subcategory.model';
+import videoModel from '../models/video.model';
 // import { route } from './account.route';
 
 const storage = multer.diskStorage({
@@ -53,7 +61,6 @@ router.get('/create/2', async function (req, res, next) {
 })
 
 router.post('/create/2', function (req, res, next) {
-    console.log(req.body);
     res.redirect(url.format({
         pathname: '/course/create/3/',
         query: {
@@ -77,270 +84,250 @@ router.get('/create/3', async function (req, res, next) {
 
 router.post('/create/3', async function (req, res, next) {
 
-    console.log(res.locals.authUser);
-//     const course = new Course (
-//         name: req.body.courseName,
-//         SubCategoryID: req.body.subcategoryID,
-//         TeaID: res.locals.authUser.TeaID
-//     )
-//     const result = await courseModel.addCourse(course);
-//     // console.log(result);
-//     res.redirect(`/course/edit/${result.insertId}`);
+    const course = new Course(-1, req.body['courseName'], "", "", 0, false, "", "", 0, 0, 0);
+    const subcategoryID = req.body.subcategoryID;
+    const teaID = res.locals.authUser.TeaID;
+    course.id = await courseModel.addCourse(course, subcategoryID, teaID);
+    res.redirect(`/course/edit/${course.id}`);
 })
 
 
-// router.get('/edit/:courseID', async function (req, res, next) {
-//     const detailcourse = await courseModel.single(req.params.courseID);
-//     const cateandsub = await courseModel.getCategoryAndSub(detailcourse.CoursesID);
-//     const allSection = await courseModel.getAllSection(req.params.courseID);
-//     const course = {
-//         CategoryID: cateandsub.CategoryID,
-//         SubCategoriesID: cateandsub.SubCategoryID,
-//         courseName: detailcourse.Name,
-//         courseID: detailcourse.CoursesID,
-//         tinyDes: detailcourse.TinyDes,
-//         fullDes: detailcourse.FullDes,
-//         Price: detailcourse.Price,
-//         IsFinished: detailcourse.IsFinished === 1,
-//         LastUpdate: detailcourse.LastUpdate,
-//         allSection: []
-//     }
-//     for (var i = 0; i < allSection.length; i++) {
-//         let section = {
-//             CourseSectionID: allSection[i].CourseSectionID,
-//             courseID: detailcourse.CoursesID,
-//             Name: allSection[i].Name,
-//             allVideo: []
-//         };
-//         let allVideo = await courseModel.getAllVideofSection(allSection[i].CourseSectionID);
-//         for (var j = 0; j < allVideo.length; j++) {
-//             let video = {
-//                 link: await courseModel.getLinkVideo(req.params.courseID, allSection[i].CourseSectionID, allVideo[j].VideoId),
-//                 videoname: allVideo[j].Name,
-//                 videoid: allVideo[j].VideoId,
-//                 courseID: detailcourse.CoursesID,
-//                 CourseSectionID: allSection[i].CourseSectionID,
-//             }
+router.get('/edit/:courseID', async function (req, res, next) {
+    const courseID = +req.params['courseID'];
+    const detailCourse = await courseModel.single(courseID);
+    if (detailCourse !== null && detailCourse.id !== undefined) {
+        const [subcategoryID, categoryID] = await courseModel.getCategoryAndSub(detailCourse.id);
+        const allSection = await courseModel.getAllSection(courseID);
 
-//             section.allVideo.push(video);
-//         }
-//         course.allSection.push(section);
-//     }
+        for (var i = 0; i < allSection.length; i++) {
+            let section = new CourseSection(
+                allSection[i].id,
+                allSection[i].name,
+                0
+            );
 
 
-//     const categories = await categoryModel.all();
-//     for (var i = 0; i < categories.length; i++) {
-//         categories[i].subcategories = [];
-//         categories[i].iscurrentCategory = (categories.CategoryID === course.CategoryID);
-//         const subcategories = await subcategoryModel.all(categories[i].CategoryID);
-//         for (var subcategory of subcategories) {
-//             categories[i].subcategories.push({
-//                 subcategory: subcategory,
-//                 isCurrentSubcategory: subcategory.SubCategoryID === course.SubCategoriesID
-//             });
-//         }
-//     }
-//     // console.log(course)
-//     return res.render('vwCourses/edit', {
-//         Course: course,
-//         Categories: categories
-//     });
-// })
+            let allVideo = await courseModel.getAllVideoSection(allSection[i].id || -1);
+            for (var j = 0; j < allVideo?.length; j++) {
+                let video = new Video(allVideo[j].id, allVideo[j].name,);
+                video.linkVideo = await courseModel.getLinkVideo(courseID, section.id, video.id);
+                video.setLink(await courseModel.getLinkVideo(courseID, allSection[i].id || -1, allVideo[j].id));
+                section.videos.push(video);
+            }
+            detailCourse.courseSection.push(section);
+        }
 
 
-// router.post('/edit/:courseID/addvideo/', async function (req, res, next) {
-//     const courseID = req.params.courseID
-//     const video = {
-//         CourseSectionID: req.body.CourseSectionID,
-//         Name: req.body.newvideoname
-//     }
-//     await courseModel.addVideo(courseID, video);
+        const categories = await categoryModel.all();
+        for (var i = 0; i < categories.length; i++) {
+            categories[i].subCategories = [];
+            //categories[i].iscurrentCategory = ();
+            const subcategories = await subcategoryModel.all(categories[i].id);
+            subcategories?.forEach((subcategory) => {
+                categories[i].subCategories.push(
+                    new SubCategory(
+                        subcategory.id,
+                        subcategory.name
+                    )
+                )
+            })
+        }
+        console.log(categories[0].subCategories);
 
-//     res.redirect(req.headers.referer);
-// });
+        console.log(detailCourse)
+        return res.render('vwCourses/edit', {
+            Course: detailCourse,
+            Categories: categories
+        });
 
-
-// router.post('/edit/:courseID/addsection/', async function (req, res, next) {
-//     const coursesection = {
-//         CourseID: req.params.courseID,
-//         Name: req.body.newsectionname
-//     }
-//     await courseModel.addSection(coursesection);
-
-//     res.redirect(req.headers.referer);
-// });
-
-
-// router.post('/edit/:CourseID/updatevideo/:CourseSectionID/:VideoID', async function (req, res, next) {
-//     const video = {
-//         Name: req.body.videotitle,
-//         CourseSectionID: req.params.CourseSectionID
-//     }
-//     const link = req.body.videolink;
-
-//     courseModel.setLinkVideo(req.params.CourseID, req.params.CourseSectionID, req.params.VideoID, link);
-
-//     await courseModel.updateVideo(video, req.params.VideoID);
-
-//     res.redirect(req.headers.referer);
-// });
-
-// router.post('/edit/:CourseID/basic', async function (req, res, next) {
-//     // console.log(req.body);
-//     const CourseID = req.params.CourseID;
-//     let IsFinished = 0;
-//     if (req.body.IsFinished === 'on') IsFinished = 1
-//     const course = {
-//         Name: req.body.CourseName,
-//         SubCategoryID: req.body.SubCategoryID,
-//         TinyDes: req.body.TinyDes,
-//         FullDes: req.body.FullDes,
-//         Price: parseFloat(req.body.Price),
-//         IsFinished: IsFinished,
-//     }
-//     // console.log(course);
-
-//     courseModel.updateCourse(course, CourseID)
-//     res.redirect(req.headers.referer);
-// });
-
-// router.post('/edit/:CourseID/uploadImg', upload.single("course"), function (req, res, next) {
-
-//     console.log(req.file);
-//     res.redirect(req.headers.referer);
-// });
-
-// router.get('/', async function (req, res, next) { //chuyển đến trang chứa toàn bộ các courses
-//     const list = await courseModel.all();
-//     res.render('vwCourses/index', {
-//         products: list,
-//         empty: list.length === 0
-//     });
-// })
-
-// router.get('/storage', async function (req, res, next) { //chuyển đến trang chứa toàn bộ các courses
-//     const list = await courseModel.all();
-//     res.render('vwCourses/paidCourse', {});
-// })
-
-// router.get('/storage/paidCourse', async function (req, res, next) { //chuyển đến trang chứa toàn bộ các courses
-//     if(req.session.auth === false){
-//         return res.redirect("/")
-//     }
-//     const list = await courseModel.getPaidCourse(req.session.authUser.ID, 0);
-
-//     res.render('vwCourses/paidCourse', {
-//         course: list
-//     });
-// })
-// router.get('/storage/wishlist', async function (req, res, next) { //chuyển đến trang chứa toàn bộ các courses
-//     const list = await courseModel.getAllWish(req.session.authUser.ID);
-//     res.render('vwCourses/wishlist', {
-//         course: list
-//     });
-// })
+    };
+})
 
 
+router.post('/edit/:courseID/addvideo/', async function (req, res, next) {
+    const courseID = Number(req.params.courseID);
+    const courseSectionID = Number(req.body.CourseSectionID);
+    const video = new Video(
+        -1,
+        req.body.newvideoname
+    )
 
-// router.get('/learn/:CourseID', async function (req, res, next) {      //chuyển đến trang để học
-//     let curVideoID;
-//     if (req.session.authUser !== null) {
-//         curVideoID = await processModel.getProcess(req.params.CourseID, req.session.authUser.ID);
-//         if (curVideoID === null) {
-//             curVideoID = await processModel.getFirstVideo(req.params.CourseID);
-//         }
-//     }
-//     else {
-//         curVideoID = await processModel.getFirstVideo(req.params.CourseID);
-//     }
-//     res.redirect(`/course/learn/${req.params.CourseID}/${curVideoID}`);
-// })
+    await courseModel.addVideo(courseID, courseSectionID, video);
+
+    res.redirect("/");
+});
 
 
-// router.get('/learn/:CourseID/:VideoID', async function (req, res, next) {           //chuyển đến trang để học
-//     const detailcourse = await courseModel.single(req.params.CourseID);
-//     const cateandsub = await courseModel.getCategoryAndSub(detailcourse.CoursesID);
-//     const allSection = await courseModel.getAllSection(req.params.CourseID);
+router.post('/edit/:courseID/addsection/', async function (req, res, next) {
+    const courseSection = new CourseSection(
+        -1,
+        req.body.newsectionname,
+        0
+    )
+    await courseModel.addSection(Number(req.params.courseID), courseSection);
 
-//     const categoryname = await courseModel.getCategeryName(cateandsub.CategoryID)
-//     const subcategoryname = await courseModel.getSubCategeryName(cateandsub.SubCategoryID)
-//     const teacher = (await courseModel.getTeacher(req.params.CourseID));
+    res.redirect("/");
+});
 
-//     let curVideoLink = "";
-//     const course = {
-//         CategoryID: cateandsub.CategoryID,
-//         Categoryname: categoryname,
-//         SubCategoriesID: cateandsub.SubCategoryID,
-//         Subcategoryname: subcategoryname,
-//         courseName: detailcourse.Name,
-//         courseID: detailcourse.CoursesID,
-//         tinyDes: detailcourse.TinyDes,
-//         fullDes: detailcourse.FullDes,
-//         Price: detailcourse.Price,
-//         IsFinished: detailcourse.IsFinished === 1,
-//         LastUpdate: detailcourse.LastUpdate.toString(),
-//         teacher: teacher,
-//         teacherName: teacher.name,
-//         allSection: []
-//     }
-//     // save to proces
-//     const CurVideoId = req.params.VideoID;
-//     if (req.session.auth !== false) {
-//         let process = await processModel.getProcess(course.courseID, req.session.authUser.ID);
-//         if (process === null) {
-//             process = {
-//                 UserID: req.session.authUser.ID,
-//                 CourseID: course.courseID,
-//                 VideoID: CurVideoId,
-//             }
-//             processModel.addProcess(process);
-//         }
-//         else {
-//             processModel.saveProcess(process, CurVideoId);
-//         }
 
-//     }
+router.post('/edit/:CourseID/updatevideo/:CourseSectionID/:VideoID', async function (req, res, next) {
+    const link = req.body.videolink;
+    const courseID = Number(req.params.CourseID);
+    const courseSectionID = Number(req.params.CourseSectionID);
+    const videoID = Number(req.params.VideoID);
 
-//     // console.log(process)
+    const video = new Video(
+        videoID,
+        req.body.videotitle,
+        //    req.params.CourseSectionID
+    )
 
-//     for (var i = 0; i < allSection.length; i++) {
-//         let section = {
-//             CourseSectionID: allSection[i].CourseSectionID,
-//             courseID: detailcourse.CoursesID,
-//             Name: allSection[i].Name,
-//             allVideo: []
-//         };
-//         let allVideo = await courseModel.getAllVideofSection(allSection[i].CourseSectionID);
-//         for (var j = 0; j < allVideo.length; j++) {
-//             let video = {
-//                 link: await courseModel.getLinkVideo(req.params.CourseID, allSection[i].CourseSectionID, allVideo[j].VideoId),
-//                 videoIndex: j + 1,
-//                 videoname: allVideo[j].Name,
-//                 videoid: allVideo[j].VideoId,
-//                 courseID: detailcourse.CoursesID,
-//                 CourseSectionID: allSection[i].CourseSectionID,
-//             }
+    if (courseID != NaN && videoID != NaN) {
+        try {
+            courseModel.setLinkVideo(courseID, courseSectionID, videoID, link);
+            await courseModel.updateVideo(video);
+        } catch (error) {
+            console.log("Error");
+        }
+    }
 
-//             if (video.videoid == req.params.VideoID) {
-//                 curVideoLink = video.link;
-//             }
-//             section.allVideo.push(video);
-//         }
-//         course.allSection.push(section);
-//     }
+
+    res.redirect("/");
+});
+
+router.post('/edit/:CourseID/basic', async function (req, res, next) {
+    // console.log(req.body);
+    const courseID = Number(req.params.CourseID);
+    if (courseID != NaN) {
+        let IsFinished = false;
+        if (req.body.IsFinished === 'on') IsFinished = true;
+        const course = new Course(
+            courseID,
+            req.body.CourseName,
+            req.body.TinyDes,
+            req.body.FullDes,
+            parseFloat(req.body.Price) || 0,
+            IsFinished,
+            "",
+            "",
+            -1,
+            -1,
+            -1,
+        )
+        console.log(course);
+
+        courseModel.updateCourse(course, courseID)
+        res.redirect("/");
+    }
+    // console.log(course);
+
+
+});
+
+router.post('/edit/:CourseID/uploadImg', upload.single("course"), function (req, res, next) {
+
+    console.log(req.file);
+    res.redirect(req.headers.referer || "/");
+});
+
+router.get('/', async function (req, res, next) { //chuyển đến trang chứa toàn bộ các courses
+    const list = await courseModel.all();
+    res.render('vwCourses/index', {
+        products: list,
+        empty: list.length === 0
+    });
+})
+
+router.get('/storage', async function (req, res, next) { //chuyển đến trang chứa toàn bộ các courses
+    const list = await courseModel.all();
+    res.render('vwCourses/paidCourse', {});
+})
+
+router.get('/storage/paidCourse', async function (req, res, next) { //chuyển đến trang chứa toàn bộ các courses
+    if(req.session.auth  &&req.session.authUser !== undefined){
+        const list = await courseModel.getPaidCourse(req.session.authUser.ID, 0);
+    
+        res.render('vwCourses/paidCourse', {
+            course: list
+        });
+    }else{
+        res.redirect("/")
+    }
+})
+router.get('/storage/wishlist', async function (req, res, next) { //chuyển đến trang chứa toàn bộ các courses
+    if(req.session.authUser != undefined){
+        const list = await courseModel.getAllWish(req.session.authUser.ID);
+        res.render('vwCourses/wishlist', {
+            course: list
+        });
+    }
+})
 
 
 
-//     res.render('vwCourses/learn', {
-//         Course: course,
-//         CurVideo: curVideoLink
-//     });
-// })
+router.get('/learn/:CourseID', async function (req, res, next) {      //chuyển đến trang để học
+    let process: Process | null = null;
+    let curVideo: Video | null = null;
+    if (+req.params.CourseID) {
+        if (req.session.authUser && req.session.authUser.ID) {
+            process = await processModel.getProcess(+req.params.CourseID, req.session.authUser.ID);
+            if (process === null) {
+                curVideo = await processModel.getFirstVideo(+req.params.CourseID);
+            }
+        } else {
+            curVideo = await processModel.getFirstVideo(+req.params.CourseID);
+        }
+        res.redirect(`/course/learn/${req.params.CourseID}/${process?.video?.id || curVideo?.id}`);
 
-// router.get('/storage/myCourse', async function (req, res, next) { //chuyển đến trang chứa toàn bộ các courses
-//     const list = await courseModel.getAllMyCourse(req.session.authUser.TeaID);
-//     res.render('vwCourses/mycourse', {
-//         course: list
-//     });
-// })
+    } else {
+        res.redirect(`/500`);
+
+    }
+
+}),
+
+
+router.get('/learn/:CourseID/:VideoID', async function (req, res, next) {           //chuyển đến trang để học
+    if (+req.params.CourseID != NaN) {
+        const detailCourse = await courseModel.single(+req.params.CourseID);
+        if (detailCourse != null) {
+            // const [categoryID, subcategoryID] = await courseModel.getCategoryAndSub(detailCourse?.id);
+            const allSection = await courseModel.getAllSection(+req.params.CourseID);
+            detailCourse.courseSection = allSection;
+            const teacher = (await courseModel.getTeacher(+req.params.CourseID));
+            detailCourse.teacher = teacher;
+
+
+            detailCourse.courseSection.forEach(async (eachCourseSection: CourseSection) => {
+                const videos = await courseModel.getAllVideoSection(eachCourseSection.id);
+                eachCourseSection.videos = videos;
+            });
+
+            console.log(+req.params.VideoID);
+            
+            let curVideo = await videoModel.getInProcessVideo(detailCourse.id,+req.params.VideoID,req.session.authUser?.ID);
+
+            console.log(curVideo);
+            
+            res.render('vwCourses/learn', {
+                Course: detailCourse,
+                CurVideo: curVideo
+            });
+        }
+
+    }
+})
+
+
+
+router.get('/storage/myCourse', async function (req, res, next) { //chuyển đến trang chứa toàn bộ các courses
+    if(req.session.authUser &&req.session.authUser.TeaID){
+        const list = await courseModel.getAllMyCourse(req.session.authUser.TeaID);
+        res.render('vwCourses/mycourse', {
+            course: list,
+            empty:list.length == 0
+        });
+    }
+
+})
 export default router;

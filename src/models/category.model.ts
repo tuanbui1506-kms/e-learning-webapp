@@ -3,7 +3,7 @@ import Category from './classes/Category';
 import SubCategory from './classes/SubCategory';
 
 const categoryModel = {
-  async all():Promise<Category[]|null> {
+  async all():Promise<Category[]> {
     const sql = 'select * from categories';
     const [rows, fields] = await db.load(sql);
     let categories: Category[] = [];
@@ -13,31 +13,40 @@ const categoryModel = {
     return categories;
   },
 
-  // async allCategories() {
-  //   const sql = `
-  //     select cat.*
-  //     from categories cat join subcategories sc on cat.CategoryID = sc.CategoryID left join courses c on sc.SubCategoryID = c.SubCategoryID
-  //     GROUP BY cat.Name
-  //   `;
-  //   const [rows, fields] = await db.load(sql);
-  //   return rows.length == 0 ? null : Category.transform(rows[0]);
+  async allCategories() {
+    const sql = `
+      select cat.*
+      from categories cat join subcategories sc on cat.CategoryID = sc.CategoryID left join courses c on sc.SubCategoryID = c.SubCategoryID
+      GROUP BY cat.Name
+    `;
+    const [rows, fields] = await db.load(sql);
+    return rows.length == 0 ? null : Category.transform(rows[0]);
 
-  // },
+  },
 
-  // async allSubCategories() {
-  //   const sql = `
-  //     select sc.*, count(c.CoursesID) as ProductCount
-  //     from subcategories sc left join courses c on sc.SubCategoryID = c.SubCategoryID
-  //     group by sc.SubCategoryID, sc.Name
-  //   `;
-  //   const [rows, fields] = await db.load(sql);
-  //   return rows.length == 0 ? null : SubCategory.transform(rows[0]);
+  async allSubCategories() {
+    const sql = `
+      select sc.*, count(c.CoursesID) as ProductCount
+      from subcategories sc left join courses c on sc.SubCategoryID = c.SubCategoryID
+      group by sc.SubCategoryID, sc.Name
+    `;
+    const [rows, fields] = await db.load(sql);
+    return rows.length == 0 ? null : SubCategory.transform(rows[0]);
 
-  // },
+  },
+
+  async singleSubCatName(subCatID:number) {
+    const sql = `select Name from subcategories where SubCategoryID = ${subCatID}`;
+    const [rows, fields] = await db.load(sql);
+    if (rows.length === 0)
+      return null;
+
+    return rows[0];
+  },
 
 
   async single(id: number):Promise<Category|null> {
-    const sql = `select * from categories where CatID = ${id}`;
+    const sql = `select * from categories where CategoryID = ${id}`;
     const [rows, fields] = await db.load(sql);
     return rows.length == 0 ? null : Category.transform(rows[0]);
 

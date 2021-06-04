@@ -117,11 +117,12 @@
                 <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
             </a>
 
+          
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+                        <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -145,7 +146,7 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Courses</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item"></li>
                 <a class="nav-link" href="student">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Students</span></a>
@@ -161,7 +162,7 @@
                     <span>Categories</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="register">
+                <a class="nav-link" href="admin/register">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Provide account</span></a>
             </li>
@@ -413,23 +414,23 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        {{#each matrixData}}
+                                        {{#each this.courses}}
                                         {{#if this.[0].block}}
                                         <tr style="background-color:gainsboro;font-size: smaller;">
                                             {{else}}
                                         <tr style="font-size: smaller;">
                                             {{/if}}
-                                            <td>{{this.[0].CoursesID}}</td>
-                                            <td>{{this.[0].Name}}</td>
-                                            <td>{{this.[0].TinyDes}}</td>
-                                            <td>{{this.[0].IsFinished}}</td>
-                                            <td>{{this.[0].namegv}}</td>
-                                            <td>{{this.[0].NameCategory}}</td>
-                                            <td>{{this.[0].DateCreated}}</td>
-                                            <td>{{this.[0].AccessNumber}}</td>
-                                            <td>{{this.[0].nRegister}}</td>
-                                            <td>{{this.[0].Price}}</td>
-                                            <td>{{this.[0].Sale}}</td>
+                                            <td>{{id}}</td>
+                                            <td>{{name}}</td>
+                                            <td>{{tinyDes}}</td>
+                                            <td>{{isFinished}}</td>
+                                            <td>{{namegv}}</td>
+                                            <td>{{NameCategory}}</td>
+                                            <td>{{dateCreated}}</td>
+                                            <td>{{accessNumber}}</td>
+                                            <td>{{nRegister}}</td>
+                                            <td>{{price}}</td>
+                                            <td>{{sale}}</td>
                                             <td>
                                                 <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

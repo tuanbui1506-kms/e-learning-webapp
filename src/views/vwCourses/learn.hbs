@@ -14,9 +14,9 @@
 <div class="mt-5 ml-3 float-sm-left w-100" style="font-family:Arial, Helvetica, sans-serif">
     <h2>
         <strong>
-            <p class="text-left font-weight-bolder" style="color: #00587a;">{{this.Course.courseName}}</p>
+            <p class="text-left font-weight-bolder" style="color: #00587a;">{{this.Course.name}}</p>
         </strong>
-        <p class="text-left" style="color:#00587a; font-size: medium;">with {{this.Course.teacherName}}</p>
+        <p class="text-left" style="color:#00587a; font-size: medium;">with {{this.Course.teacher.name}}</p>
     </h2>
 </div>
 <hr>
@@ -24,7 +24,7 @@
     <div class="col-9">
         <div>
             <div class="plyr__video-embed w-100 " id="player">
-                <iframe width="100%" height="600" src="{{this.CurVideo}}" frameborder="0"
+                <iframe width="100%" height="600" src="{{this.CurVideo.linkVideo}}" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
                 </iframe>
@@ -50,34 +50,34 @@
 
     <div class="col-3 w-100">
         <div class="accordion mx-auto" id="accordionExample">
-            {{#each this.Course.allSection}}
+            {{#each this.Course.courseSection}}
             <div class="card w-100">
-                <div class="card-header w-100" id="heading{{CourseSectionID}}" style="background-color: #00587a;">
+                <div class="card-header w-100" id="heading{{id}}" style="background-color: #00587a;">
                     <h2 class="mb-0">
                         <button class="btn btn-block text-left" type="button" data-toggle="collapse"
-                            data-target="#collapse{{CourseSectionID}}"
+                            data-target="#collapse{{id}}"
                             style="background-color:#00587a  ;font-size: 12pt;">
                             <strong style="color: aliceblue;">
-                                {{Name}}
+                                {{name}}
                             </strong>
                         </button>
                     </h2>
                     <div class="mb-0 text-left" style="font-size: 8pt;color: #e7e7de;">
-                        Processing: 1/{{allVideo.length}}
+                        Processing: 1/{{videos.length}}
                     </div>
                 </div>
 
-                <div id="collapse{{CourseSectionID}}" class="collapse show " aria-labelledby="heading"
+                <div id="collapse{{id}}" class="collapse show " aria-labelledby="heading"
                     data-parent="#accordionExample" style="width: 100%;">
                     <div class="card-body w-100">
                         <ul class="list-group w-100">
-                            {{#each allVideo}}
-                            <a href="/course/learn/{{courseID}}/{{videoid}}">
+                            {{#each videos}}
+                            <a href="/course/learn/{{../../this.Course.id}}/{{id}}">
                                 <li class="list-group-item list-group-item-action">
                                     <strong>
-                                        {{videoIndex}}.
+                                        {{@index}}.
                                     </strong>
-                                    {{videoname}}
+                                    {{name}}
                                 </li>
                             </a>
                             {{/each}}

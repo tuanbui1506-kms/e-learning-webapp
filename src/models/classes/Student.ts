@@ -17,7 +17,7 @@ class Student{
     }
     static transform(row: RowDataPacket): Student {
         let student: Student = {
-            stuID: row['TeaID'],
+            stuID: row['StuID'],
             name: row['name'],
             dob: row['dob'],
             email: row['email'],

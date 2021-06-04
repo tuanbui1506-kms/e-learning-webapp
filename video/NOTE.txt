@@ -1,0 +1,12 @@
+Tree structure of this video folder
+categoriesID -> subcategoriesID -> courseID -> coursesectionID -> videoID 
+
+└───1 (category with ID = 1, contain 2 subcategories)
+    ├───1 (subcategory with ID  = 1, contain 2 course)
+    │   ├───1 course with ID  = 1, contain 3 section)
+    │   │   ├───1 (section 1)
+    │   │      ├───1.mp4 video with ID = 1     
+    │   │   ├───2 (section 2)
+    │   │   └───3 (section 3)
+    │   └───2
+    └───2

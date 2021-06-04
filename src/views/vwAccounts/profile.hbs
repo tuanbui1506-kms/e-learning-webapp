@@ -48,15 +48,15 @@
                         </div>
                         <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                             <div class="text-center text-sm-left mb-2 mb-sm-0">
-                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{user.name}}</h4>
-                                <p class="mb-0" style="font-size:small;">@{{user.username}}</p>
-                                {{#if permiss}}
+                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{userDetail.user.name}}</h4>
+                                <p class="mb-0" style="font-size:small;">@{{userDetail.user.username}}</p>
+                                {{#if isTeacher}}
                                 <div class="text-center text-sm-left">
-                                    <span class="badge badge-secondary" style="font-size:small;">Student</span>
+                                    <span class="badge badge-secondary" style="font-size:small;">Teacher</span>
                                 </div>
                                 {{else}}
                                 <div class="text-center text-sm-left">
-                                    <span class="badge badge-secondary" style="font-size:small;">Teacher</span>
+                                    <span class="badge badge-secondary" style="font-size:small;">Student</span>
                                 </div>
                                 {{/if}}
                                 <div class="mt-2">
@@ -91,7 +91,7 @@
                                         </ul>
                                         <div class="tab-content pt-3">
                                             <div class="tab-pane active">
-                                                <form class="form" method="POST" action="/user/profile/save/{{user.username}}">
+                                                <form class="form" method="POST" action="/user/profile/save/{{userDetail.user.username}}">
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="row">
@@ -100,8 +100,8 @@
                                                                         <label>Full Name</label>
                                                                         <input style="font-size:small"
                                                                             class="form-control" type="text" name="name"
-                                                                            placeholder="{{user.name}}"
-                                                                            value="{{user.name}}">
+                                                                            placeholder="{{userDetail.info.name}}"
+                                                                            value="{{userDetail.info.name}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col">
@@ -109,8 +109,8 @@
                                                                         <label>Username</label>
                                                                         <input class="form-control" type="text"
                                                                             name="username"
-                                                                            placeholder="{{user.username}}"
-                                                                            style="font-size:small""{{user.username}}"
+                                                                            placeholder="{{userDetail.user.username}}"
+                                                                            style="font-size:small""{{userDetail.info.username}}"
                                                                             readonly>
                                                                     </div>
                                                                 </div>
@@ -121,7 +121,7 @@
                                                                         <label>Email</label>
                                                                         <input style="font-size:small" id="email" name="email"
                                                                             class="form-control" type="email"
-                                                                            placeholder="{{user.email}}" onchange='validate();'>
+                                                                            placeholder="{{userDetail.info.email}}" onchange='validate();'>
                                                                     </div>
                                                                 </div>
                                                             </div>

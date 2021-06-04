@@ -31,16 +31,16 @@
           </tr>
         </thead>
         <tbody>
-          {{#each this.items}}
+          {{#each this.items.courses}}
           <tr>
             <td>
-              <a href="/courses/detail/{{course.CoursesID}}">
-                {{course.Name}}
+              <a href="/courses/detail/{{id}}">
+                {{name}}
               </a>
             </td>
-            <td>{{format_number course.Price}}</td>
+            <td>{{format_number price}}</td>
             <td class="text-right">
-              <a data-id="{{course.CoursesID}}" class="btn btn-sm btn-outline-danger removeItem" title="Remove Item"
+              <a data-id="{{id}}" class="btn btn-sm btn-outline-danger removeItem" title="Remove Item"
                 href="javascript:;" role="button">
                 <i class="fa fa-trash" aria-hidden="true"></i>
               </a>

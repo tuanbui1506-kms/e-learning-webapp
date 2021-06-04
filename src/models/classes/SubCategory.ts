@@ -10,7 +10,7 @@ class SubCategory{
     }
     static transform(row: RowDataPacket): SubCategory {
         let subCategory: SubCategory = {
-            id:row["CategoryID"],
+            id:row["SubCategoryID"],
             name:row['Name']
         };
         return subCategory;

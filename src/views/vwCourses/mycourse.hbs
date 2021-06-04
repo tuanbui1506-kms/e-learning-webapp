@@ -25,19 +25,19 @@
             {{else}}
             <div class="col">
                 {{#each this.course}}
-                <a href="/courses/detail/{{CoursesID}}">
+                <a href="/courses/detail/{{id}}">
 
                     <div class="row">
                         <div class="col-3">
                             <img style=" border-radius: 8px; border: 1px solid darkgrey;"
-                                src="/design/images/course_{{CoursesID}}.jpg" alt="{{Name}}" title="{{Name}}"
+                                src="/design/images/course_{{id}}.jpg" alt="{{name}}" title="{{name}}"
                                 class="card-img-top">
                         </div>
                         <div class="col-8">
                             <div class="card-body">
                                 <h5 class="card-title"><b>{{Name}}</b></h5>
-                                <p class="card-text" style="margin-bottom:0%; color:black">{{TinyDes}}</p>
-                                <p class="card-text" style="font-size: 13px; margin-bottom:5px">{{namegv}}</p>
+                                <p class="card-text" style="margin-bottom:0%; color:black">{{tinyDes}}</p>
+                                <p class="card-text" style="font-size: 13px; margin-bottom:5px">{{teacher.name}}</p>
                                 {{#if rat}}
                                 <div class="row" style="margin-left:0px; margin-right:5px">
                                     <h6 class="text-danger" style="margin-top: 1%; margin-right: 1%;"><b>{{T}}</b></h5>
@@ -62,10 +62,10 @@
                             <h5 class="card-title text-danger"><b>{{format_number Sale}}</b></h5>
                             <h5 class="card-title text-danger" style="text-decoration-line:line-through">
                                 <b>{{format_number
-                                    Price}}</b>
+                                    price}}</b>
                             </h5>
                             {{else}}
-                            <h5 class="card-title text-danger"><b>{{format_number Price}}</b></h5>
+                            <h5 class="card-title text-danger"><b>{{format_number price}}</b></h5>
                             {{/if}}
                         </div>
                     </div>

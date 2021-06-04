@@ -36,8 +36,8 @@ const teacherModel = {
         return rows.length == 0 ? null : Teacher.transform(rows[0]);
     },
 
-    async add(student: string): Promise<Teacher | null> {
-        const [result, fields] = await db.add(student, 'teachers');
+    async add(teacher: Teacher): Promise<Teacher | null> {
+        const [result, fields] = await db.add(teacher, 'teachers');
         return result.length == 0 ? null : Teacher.transform(result[0]);
     },
 
@@ -48,11 +48,11 @@ const teacherModel = {
     //     return rows[0].total;
 
     // },
-    // async largest_ID() {
-    //     const [result, fields] = await db.largest_ID(TEACHER_PROPERTIES.pk, TEACHER_PROPERTIES.table_name);
+    async largest_ID():Promise<number> {
+        const [result, fields] = await db.largest_ID(TEACHER_PROPERTIES.pk, TEACHER_PROPERTIES.table_name);
 
-    //     return result[0].largestID;
-    // }
+        return result[0].largestID;
+    }
 
 };
 export default teacherModel;

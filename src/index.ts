@@ -8,6 +8,9 @@ import morgan from 'morgan'
 const app = express();
 const PORT = (process.env.PORT || 3000) as number;
 
+app.use('/design', express.static('design'));
+app.use('/video', express.static('video'));
+app.use('/imgs', express.static('imgs')); //lấy hình ảnh
 
 viewMdw(app);
 sessionMdw(app);

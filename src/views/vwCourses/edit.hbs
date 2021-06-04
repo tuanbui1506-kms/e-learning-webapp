@@ -64,13 +64,13 @@
 <div class="w-75 mx-auto">
   <div class="border mt-4">
     <h1 class="h1 ml-3 mt-3 text-center font-weight-bold uppercase">Basic setting up</h1>
-    <form class="w-75 mx-auto mt-3" action="/course/edit/{{this.Course.courseID}}/basic" method="POST">
+    <form class="w-75 mx-auto mt-3" action="/course/edit/{{this.Course.id}}/basic" method="POST">
       <div class="form-group">
         <label for="Coursename">
           <h3>Course Name</h3>
         </label>
         <input type="text" class="form-control" id="textCoursename" name='CourseName'
-          value="{{this.Course.courseName}}">
+          value="{{this.Course.name}}">
       </div>
 
       <div class="form-group">
@@ -80,9 +80,9 @@
         <select class="form-control" id="exampleFormControlSelect2" name="CategoryID">
           {{#each this.Categories}}
           {{#if this.Categories.iscurrentCategory}}
-          <option value={{CategoryID}} selected="selected">{{Name}}</option>
+          <option value={{id}} selected="selected">{{name}}</option>
           {{else}}
-          <option value={{CategoryID}}>{{Name}}</option>
+          <option value={{id}}>{{name}}</option>
           {{/if}}
           {{/each}}
         </select>
@@ -94,12 +94,12 @@
         </label>
         <select class="form-control" id="SelectSubCategoryID" name="SubCategoryID">
           {{#each this.Categories}}
-          <optgroup label="{{Name}}">
-            {{#each subcategories}}
+          <optgroup label="{{name}}">
+            {{#each subCategories}}
             {{#if isCurrentSubcategory}}
-            <option value={{subcategory.SubCategoryID}} selected="selected">{{subcategory.Name}}</option>
+            <option value={{id}} selected="selected">{{name}}</option>
             {{else}}
-            <option value={{subcategory.SubCategoryID}}>{{subcategory.Name}}</option>
+            <option value={{id}}>{{name}}</option>
             {{/if}}
             {{/each}}
           </optgroup>
@@ -126,7 +126,7 @@
           <span class="input-group-text">Price</span>
         </div>
         <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" step="0.1" name="Price"
-          value="{{this.Course.Price}}">
+          value="{{this.Course.price}}">
         <div class="input-group-append">
           <span class="input-group-text">$</span>
         </div>
@@ -146,7 +146,7 @@
 
       <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" id="customCheck1" name="IsFinished" {{#if
-          this.Course.IsFinished}}checked="yes" {{/if}}>
+          this.Course.isFinished}}checked="yes" {{/if}}>
 
         <label class="custom-control-label" for="customCheck1">Has this courses is all finished yet?</label>
       </div>
@@ -161,24 +161,24 @@
   <div class="w-100 border">
     <h2 class="ml-3 mt-3 s">Upload your course's avatar</h2>
     <div class="file-loading">
-      <form action="/course/edit/{{this.Course.courseID}}/uploadImg" method="post" enctype="multipart/form-data">
+      <form action="/course/edit/{{this.Course.id}}/uploadImg" method="post" enctype="multipart/form-data">
         <input id="input-21" type="file" name="course" accept="image/*">
       </form>
     </div>
   </div>
 
   <div>
-    {{#each this.Course.allSection}}
+    {{#each this.Course.courseSection}}
     <div class="accordion mt-5 mb-5" id="accordionExample">
       <div class="card">
 
-        <form action="/course/edit/{{courseID}}/{{CourseSectionID}}/updatesection" method="POST">
-          <div class="card-header w-100 d-flex justify-content-between" id="heading{{CourseSectionID}}">
+        <form action="/course/edit/{{../this.Course.id}}/{{id}}/updatesection" method="POST">
+          <div class="card-header w-100 d-flex justify-content-between" id="heading{{id}}">
             <div>
               <h2 class="mb-0">
                 <input class="btn btn-link btn-block text-left" type="text" data-toggle="collapse"
-                  data-target="#collapse{{CourseSectionID}}" aria-expanded="true"
-                  aria-controls="collapse{{CourseSectionID}}" value="{{Name}}" name="SectionName" required='required'>
+                  data-target="#collapse{{id}}" aria-expanded="true"
+                  aria-controls="collapse{{id}}" value="{{name}}" name="SectionName" required='required'>
               </h2>
             </div>
             <div>
@@ -186,20 +186,20 @@
             </div>
           </div>
         </form>
-        <div id="collapse{{CourseSectionID}}" class="collapse show" aria-labelledby="heading{{CourseSectionID}}"
+        <div id="collapse{{id}}" class="collapse show" aria-labelledby="heading{{id}}"
           data-parent="#accordionExample">
           <div class="card-body">
-            {{#each allVideo}}
+            {{#each videos}}
             <div class="card w-100 mt-3 mb -3">
               <div class="card-body">
-                <form method="POST" action='/course/edit/{{courseID}}/updatevideo/{{CourseSectionID}}/{{videoid}}'>
+                <form method="POST" action='/course/edit/{{../../this.Course.id}}/updatevideo/{{../id}}/{{id}}'>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Video title</label>
-                    <input type="text" class="form-control" name="videotitle" value="{{videoname}}" required="required">
+                    <input type="text" class="form-control" name="videotitle" value="{{name}}" required="required">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Video link</label>
-                    <input type="text" class="form-control" name="videolink" value="{{link}} " required="required">
+                    <input type="text" class="form-control" name="videolink" value="{{linkVideo}} " required="required">
                   </div>
                   <button type="submit" class="btn btn-primary">Save</button>
                 </form>
@@ -207,9 +207,9 @@
             </div>
             {{/each}}
             <!--add new video form -->
-            <form action="/course/edit/{{courseID}}/addvideo/" method="POST">
+            <form action="/course/edit/{{../this.Course.id}}/addvideo/" method="POST">
               <div class="input-group mb-3 mt-4 w-50">
-                <input type="hidden" class="form-control" value="{{CourseSectionID}}" name="CourseSectionID">
+                <input type="hidden" class="form-control" value="{{id}}" name="CourseSectionID">
                 <input type="text" class="form-control" placeholder="New video title" aria-describedby="basic-addon2"
                   name="newvideoname" required="required">
                 <div class="input-group-append">
@@ -226,7 +226,7 @@
       </div>
     </div>
     {{/each}}
-    <form action="/course/edit/{{this.Course.courseID}}/addsection/" method="POST">
+    <form action="/course/edit/{{this.Course.id}}/addsection/" method="POST">
       <div class="input-group mb-3 mt-4 w-50">
         <input type="text" class="form-control" placeholder="New section title" aria-label="Recipient's username"
           aria-describedby="basic-addon2" name="newsectionname" required="required">

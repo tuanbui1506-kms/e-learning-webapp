@@ -10,7 +10,7 @@ const PORT = (process.env.PORT || 3000) as number;
 
 app.use('/design', express.static('design'));
 app.use('/video', express.static('video'));
-app.use('/imgs', express.static('imgs')); //lấy hình ảnh
+app.use('/imgs', express.static('imgs'));
 
 viewMdw(app);
 sessionMdw(app);
@@ -22,7 +22,7 @@ app.use(route)
 
 
 app.use((req:express.Request,res:express.Response) =>{
-    res.send("Hello there!!")
+    res.render("/500");
 })
 
 app.listen(PORT,()=>{

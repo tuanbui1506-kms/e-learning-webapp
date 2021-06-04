@@ -8,4 +8,4 @@ rebuild e-learning web app using TypeScript
 ### 3. Run `yarn start`
 ### 4. Note
 - Admin account: admin/admin
-
+- Teacher account: hxk/1

@@ -5,7 +5,7 @@ rebuild e-learning web app using TypeScript
 ### 2. `yarn install`
 ### 3. Run SQL script
 - Run `quanlykhoahoc.sql`
-- Update `dbConfig` in `src/config/`
+- Update `dbConfig` in `src/config/default.ts`
   - Modify `port`, `user`, `password` options
 ### 4. Run `yarn start`
 ### 5. Note

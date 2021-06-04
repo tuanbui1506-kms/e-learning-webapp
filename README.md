@@ -8,6 +8,8 @@ rebuild e-learning web app using TypeScript
 - Update `dbConfig` in `src/config/default.ts`
   - Modify `port`, `user`, `password` options
 ### 4. Run `yarn start`
+- Console will print `Server is listening on Port:${PORT}` 
+- Go to `http://localhost:${PORT}/`
 ### 5. Note
 - Admin account: admin/admin
 - Teacher account: hxk/1
